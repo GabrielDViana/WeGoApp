@@ -1,0 +1,16 @@
+<ion-view>
+  <ion-content scroll="false">
+
+    <div class="card">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Email" ng-model='user.email' >
+        </label>
+        <input type="submit" class="button button-dark button-block icon-left " ng-click="resetPassword(user)" value="Enviar chave para o meu email" />
+        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.resetkeyenter" value="Ja possuo uma chave" />
+        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.login" value="Voltar" />
+      </div>
+    </div>
+      <!-- Div para login com rede social  -->
+  </ion-content>
+</ion-view>

@@ -1,0 +1,15 @@
+<ion-view>
+  <ion-content scroll="false">
+
+    <div class="card">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Senha" ng-model= "user.key">
+        </label>
+        <input type="submit" class="button button-dark button-block icon-left " ng-click="resetPasswordKeyEnter(user)" value="Entrar com a chave" />
+        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.login" value="Voltar" />
+      </div>
+    </div>
+      <!-- Div para login com rede social  -->
+  </ion-content>
+</ion-view>

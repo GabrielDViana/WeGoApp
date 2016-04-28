@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic','firebase'])
+angular.module('starter', ['ionic','firebase','ngCordova','ngResource'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -26,10 +26,47 @@ angular.module('starter', ['ionic','firebase'])
       views: {
         'menuContent': {
           templateUrl: 'templates/home.html',
-          controller: 'socialLoginCtrl'
+          controller: 'loginCtrl'
         }
       }
     })
+    .state('app.register', {
+      url: '/registerEmail',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/registerEmail.html',
+          controller: 'loginCtrl'
+        }
+      }
+    })
+    .state('app.resetsend', {
+        url: '/resetsend',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/resetSend.html',
+            controller: 'ResetPasswordCtrl'
+          }
+        }
+      })
+      .state('app.resetedit', {
+        url: '/resetedit',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/resetEdit.html',
+            controller: 'ResetPasswordCtrl'
+          }
+        }
+      })
+      .state('app.resetkeyenter', {
+        url: '/resetkeyenter',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/resetKeyEnter.html',
+            controller: 'ResetPasswordCtrl'
+          }
+        }
+      })
+      ;
   $urlRouterProvider.otherwise("app/home");
 })
 
