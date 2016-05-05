@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic','firebase','ngCordova','ngResource'])
+angular.module('starter', ['ionic','firebase','ngCordova','ngResource','ionMdInput','ionic-material'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,7 +19,7 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource'])
       url: '/app',
       abstract: true,
       templateUrl: 'templates/menu.html',
-      controller: 'MainController'
+      controller: 'AppCtrl'
     })
     .state('app.home', {
       url: '/home',

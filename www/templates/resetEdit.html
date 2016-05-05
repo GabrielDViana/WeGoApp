@@ -1,5 +1,5 @@
 <ion-view>
-  <ion-content scroll="false">
+  <ion-content scroll="false" ng-class="{expanded:$scope.isExpanded}">
 
     <div class="card">
       <div class="list">
@@ -10,7 +10,7 @@
           <input type="password" placeholder="Confirmar Senha" ng-model="user.password_confirmation">
         </label>
         <input type="submit" class="button button-dark button-block icon-left " ng-click="resetPasswordEdit(user)" value="Confirmar alterações" />
-        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.login" value="Voltar" />
+        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.home" value="Voltar" />
       </div>
     </div>
       <!-- Div para login com rede social  -->

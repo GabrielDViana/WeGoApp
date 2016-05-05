@@ -1,7 +1,14 @@
 angular.module('starter')
 
 .controller('loginCtrl', function($ionicPopup ,$scope, $state, $stateParams,
-  $rootScope, $ionicLoading, factoryRegister, factoryLogin, serviceLogin) {
+  $rootScope, $ionicLoading, factoryRegister, factoryLogin, serviceLogin,
+  ionicMaterialInk, $timeout) {
+
+  $scope.$parent.clearFabs();
+  $timeout(function() {
+    $scope.$parent.hideHeader();
+  }, 0);
+  ionicMaterialInk.displayEffect();
 
   var ref = new Firebase("https://appwego.firebaseio.com");
 

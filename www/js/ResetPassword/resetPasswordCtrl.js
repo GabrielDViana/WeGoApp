@@ -4,6 +4,13 @@ angular.module('starter')
   resetPasswordKeyEnterFactory, $ionicPopup, $state, resetPasswordService,
   resetPasswordEditFactory, $rootScope, $ionicLoading) {
 
+  // Set Header
+  $scope.$parent.showHeader();
+  $scope.$parent.clearFabs();
+  $scope.isExpanded = false;
+  $scope.$parent.setExpanded(false);
+  $scope.$parent.setHeaderFab(false);
+
   $scope.resetPassword = function(user) {
     $ionicLoading.show({
       template: 'Loading...'

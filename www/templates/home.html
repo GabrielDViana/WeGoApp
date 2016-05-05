@@ -1,21 +1,38 @@
-<ion-view>
+<ion-view class="background ">
   <ion-content scroll="false">
-
-    <div class="card">
-      <button class="button button-positive button-block icon-left ion-social-facebook" ng-click="loginFacebook()">
-        LOGIN COM FACEBOOK
-      </button>
-      <button class="button button-calm button-block icon-left ion-social-twitter" ng-click="loginFacebook()">
-        LOGIN COM TWITTER
-      </button>
-
+    <div class="logo">
+      <div class="row">
+        <div class="col col-33"></div>
+        <div class="col col-33 col-center">
+          <img src="img/ionic.png" alt="">
+        </div>
+        <div class="col col-33"></div>
+      </div>
     </div>
-    <button class="button button-outline button-block icon-left ion-email" ui-sref="app.register">
-      CADASTRAR
-    </button>
-    <button class="button button-outline button-block icon-left ion-email" ui-sref="app.resetsend">
-      ESQUECI MINHA SENHA
-    </button>
-  </ion-content>
+    <div class="dist">
+      <label class="inputs item item-input ion-person icon-left custom-icon">
+        <input type="text" placeholder="E-mail" class="height" ng-model="user.email" >
+      </label>
+    </div>
+    <div class="dist">
+      <label class="inputs item item-input ion-locked icon-left custom-icon">
+        <input type="password" placeholder="Senha" class="height" ng-model="user.password">
+      </label>
+    </div>
 
+    <input type="submit" class="button button-dark button-block icon-left " ng-click="loginEmail(user)" value="LOGIN" />
+
+    <div class="row">
+      <div class="col text-center">
+        <button class="button-block button-clear" ui-sref="app.register">
+          Cadastre-se no App
+        </button>
+
+        <button class="button-block button-small button-clear" ui-sref="app.resetsend">
+          Esqueceu sua senha?
+        </button>
+      </div>
+    </div>
+
+  </ion-content>
 </ion-view>

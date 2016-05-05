@@ -1,6 +1,5 @@
 <ion-view>
-  <ion-content scroll="false">
-
+  <ion-content scroll="false" ng-class="{expanded:$scope.isExpanded}">
     <div class="card">
       <div class="list">
         <label class="item item-input">
@@ -15,8 +14,11 @@
         <label class="item item-input">
           <input type="password" placeholder="Confirmar Senha" ng-model="user.password_confirmation">
         </label>
+        <label class="item item-input">
+          <input type="date" placeholder="Confirmar Senha" ng-model="user.birthday">
+        </label>
         <input type="submit" class="button button-dark button-block icon-left " ng-click="registerEmail(user)" value="Registrar" />
-        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.login" value="Voltar" />
+        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.home" value="Voltar" />
       </div>
     </div>
       <!-- Div para login com rede social  -->

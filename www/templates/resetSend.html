@@ -1,5 +1,5 @@
 <ion-view>
-  <ion-content scroll="false">
+  <ion-content scroll="false" ng-class="{expanded:$scope.isExpanded}">
 
     <div class="card">
       <div class="list">
@@ -8,7 +8,7 @@
         </label>
         <input type="submit" class="button button-dark button-block icon-left " ng-click="resetPassword(user)" value="Enviar chave para o meu email" />
         <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.resetkeyenter" value="Ja possuo uma chave" />
-        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.login" value="Voltar" />
+        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.home" value="Voltar" />
       </div>
     </div>
       <!-- Div para login com rede social  -->
