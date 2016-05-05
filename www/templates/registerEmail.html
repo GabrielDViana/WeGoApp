@@ -14,9 +14,21 @@
         <label class="item item-input">
           <input type="password" placeholder="Confirmar Senha" ng-model="user.password_confirmation">
         </label>
-        <label class="item item-input">
-          <input type="date" placeholder="Confirmar Senha" ng-model="user.birthday">
-        </label>
+        <div class="row">
+          <ionic-datepicker idate="currentDate" disablepreviousdates="true"  ng-click="openDatePicker()">
+            <button class="button button-block button-positive"> {{ currentDate | date:'dd - MMMM - yyyy' }}    </button>
+          </ionic-datepicker>
+          <label class="col col-50 item item-input item-select">
+            <div class="input-label">
+              Sexo
+            </div>
+            <select ng-model="user.gender">
+              <option selected>Masculino</option>
+              <option>Feminino</option>
+            </select>
+          </label>
+        </div>
+
         <input type="submit" class="button button-dark button-block icon-left " ng-click="registerEmail(user)" value="Registrar" />
         <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.home" value="Voltar" />
       </div>

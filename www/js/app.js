@@ -1,4 +1,5 @@
-angular.module('starter', ['ionic','firebase','ngCordova','ngResource','ionMdInput','ionic-material'])
+angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
+  'ionMdInput','ionic-material','ionic-datepicker'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -75,3 +76,21 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource','ionMdInp
     $ionicSideMenuDelegate.toggleLeft();
   }
 }])
+
+.config(function (ionicDatePickerProvider) {
+    var datePickerObj = {
+      inputDate: new Date(),
+      setLabel: 'Escolher',
+      closeLabel: 'Fechar',
+      mondayFirst: false,
+      weeksList: ["D", "S", "T", "Q", "Q", "S", "S"],
+      monthsList: ["Jan", "Fev", "Março", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+      templateType: 'popup',
+      from: new Date(1900, 1, 1),
+      to: new Date(2018, 8, 1),
+      showTodayButton: false,
+      dateFormat: 'dd MMMM yyyy',
+      closeOnSelect: false
+    };
+    ionicDatePickerProvider.configDatePicker(datePickerObj);
+  })

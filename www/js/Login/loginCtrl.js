@@ -2,7 +2,7 @@ angular.module('starter')
 
 .controller('loginCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, factoryRegister, factoryLogin, serviceLogin,
-  ionicMaterialInk, $timeout) {
+  ionicMaterialInk, $timeout, ionicDatePicker) {
 
   $scope.$parent.clearFabs();
   $timeout(function() {
@@ -35,6 +35,21 @@ angular.module('starter')
     });
   }
 
+  $scope.currentDate = "Data de nascimento";
+  var birthday = {
+      callback: function (val) {
+        console.log('Return value from the datepicker popup is : ' + val, $scope.currentDate = new Date(val));
+      },
+      from: new Date(1900, 1, 1),
+      to: new Date(2000, 10, 30),
+      inputDate: new Date(),
+      closeOnSelect: true,
+      templateType: 'popup'
+    };
+
+  $scope.openDatePicker = function(){
+    ionicDatePicker.openDatePicker(birthday);
+  };
 
   $scope.loginEmail = function(user) {
     $ionicLoading.show({
@@ -62,6 +77,7 @@ angular.module('starter')
   }
 
   $scope.registerEmail = function(user) {
+    user.birthday = $scope.currentDate;
     $ionicLoading.show({
       template: 'Loading...'
     });
