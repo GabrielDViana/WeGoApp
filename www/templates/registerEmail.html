@@ -1,37 +1,62 @@
 <ion-view>
+  <div class="bar bar-header bar-balanced">
+    <h1 class="title">CADASTRAR-SE</h1>
+  </div>
   <ion-content scroll="false" ng-class="{expanded:$scope.isExpanded}">
-    <div class="card">
-      <div class="list">
-        <label class="item item-input">
-          <input type="text" placeholder="Nome" ng-model='user.name' >
+    <div class="fields">
+      <div class="distance">
+        <span class="labels">Name:</span>
+        <label class="item item-input inputs-register">
+          <input type="text" ng-model='user.name' >
         </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Email" ng-model='user.email' >
-        </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Senha" ng-model= "user.password">
-        </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Confirmar Senha" ng-model="user.password_confirmation">
-        </label>
-        <div class="row">
-          <ionic-datepicker idate="currentDate" disablepreviousdates="true"  ng-click="openDatePicker()">
-            <button class="button button-block button-positive"> {{ currentDate | date:'dd - MMMM - yyyy' }}    </button>
-          </ionic-datepicker>
-          <label class="col col-50 item item-input item-select">
-            <div class="input-label">
-              Sexo
-            </div>
-            <select ng-model="user.gender">
-              <option selected>Masculino</option>
-              <option>Feminino</option>
-            </select>
-          </label>
-        </div>
-
-        <input type="submit" class="button button-dark button-block icon-left " ng-click="registerEmail(user)" value="Registrar" />
-        <input type="submit" class="button button-dark button-block icon-left " ui-sref="app.home" value="Voltar" />
       </div>
+      <div class="distance">
+        <span class="labels">Email:</span>
+        <label class="item item-input inputs-register">
+          <input type="text" ng-model='user.email' >
+        </label>
+      </div>
+      <div class="distance">
+        <span class="labels">Senha:</span>
+        <label class="item item-input inputs-register">
+          <input type="password" ng-model= "user.password">
+        </label>
+      </div>
+      <div class="distance">
+        <span class="labels">Confirmar Senha:</span>
+        <label class="item item-input inputs-register">
+          <input type="password" ng-model="user.password_confirmation">
+        </label>
+      </div>
+      <div class="row labels">
+        <div class="col col-40">
+          <span>Data de nascimento:</span>
+          <ionic-datepicker idate="currentDate" disablepreviousdates="true"  ng-click="openDatePicker()">
+            <button class="button button-block icon-right ion-calendar"> {{ currentDate | date:'dd/MM/yy' }}</button>
+          </ionic-datepicker>
+        </div>
+        <div class="col col-40">
+          <span>Sexo:</span>
+          <select style="border-radius: 5px;margin-top:5px;"class="item item-select" ng-model="user.gender">
+            <option ng-selected="true">Masculino</option>
+            <option>Feminino</option>
+          </select>
+        </div>
+      </div>
+      <div class="terms labels">
+        <span>Ao se cadastrar você está aceitando os
+          <span ng-click="modal.show()" class="balanced">Termos de uso e política de privacidade</span>
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col col-33"></div>
+        <div class="col col-33 col-center">
+          <input type="submit" class="button button-balanced button-block icon-left " ng-click="registerEmail(user)" value="Cadastrar" />
+        </div>
+        <div class="col col-33"></div>
+      </div>
+
     </div>
       <!-- Div para login com rede social  -->
   </ion-content>

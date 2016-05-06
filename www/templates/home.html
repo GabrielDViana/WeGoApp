@@ -2,33 +2,36 @@
   <ion-content scroll="false">
     <div class="logo">
       <div class="row">
-        <div class="col col-33"></div>
-        <div class="col col-33 col-center">
-          <img src="img/ionic.png" alt="">
+        <div class="col-center">
+          <img src="img/logo.png" alt="">
         </div>
-        <div class="col col-33"></div>
       </div>
     </div>
     <div class="dist">
-      <label class="inputs item item-input ion-person icon-left custom-icon">
+      <label class="inputs item item-input ion-person icon-left custom-icon balanced">
         <input type="text" placeholder="E-mail" class="height" ng-model="user.email" >
       </label>
     </div>
     <div class="dist">
-      <label class="inputs item item-input ion-locked icon-left custom-icon">
+      <label class="inputs item item-input ion-locked icon-left custom-icon balanced">
         <input type="password" placeholder="Senha" class="height" ng-model="user.password">
       </label>
     </div>
-
-    <input type="submit" class="button button-dark button-block icon-left " ng-click="loginEmail(user)" value="LOGIN" />
+    <div class="row">
+      <div class="col col-33"></div>
+      <div class="col col-33 col-center">
+        <input type="submit" class="button button-balanced button-block icon-left " ng-click="loginEmail(user)" value="Logar" />
+      </div>
+      <div class="col col-33"></div>
+    </div>
 
     <div class="row">
       <div class="col text-center">
-        <button class="button-block button-clear" ui-sref="app.register">
+        <button class="button-block button-clear" style="font-size:18px;" ui-sref="app.register">
           Cadastre-se no App
         </button>
 
-        <button class="button-block button-small button-clear" ui-sref="app.resetsend">
+        <button class="button-block button-clear" style="font-size:12px;" ui-sref="app.resetsend">
           Esqueceu sua senha?
         </button>
       </div>

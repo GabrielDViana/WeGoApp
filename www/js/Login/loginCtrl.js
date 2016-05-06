@@ -2,7 +2,7 @@ angular.module('starter')
 
 .controller('loginCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, factoryRegister, factoryLogin, serviceLogin,
-  ionicMaterialInk, $timeout, ionicDatePicker) {
+  ionicMaterialInk, $timeout, ionicDatePicker, $ionicModal) {
 
   $scope.$parent.clearFabs();
   $timeout(function() {
@@ -35,7 +35,7 @@ angular.module('starter')
     });
   }
 
-  $scope.currentDate = "Data de nascimento";
+  $scope.currentDate = "";
   var birthday = {
       callback: function (val) {
         console.log('Return value from the datepicker popup is : ' + val, $scope.currentDate = new Date(val));
@@ -61,10 +61,15 @@ angular.module('starter')
         user.email,
         user.token
       );
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Logado!',
+        template: '{{user}}'
+      });
       factoryRegister.save(serviceLogin.getUser());
       $rootScope.user = serviceLogin.getUser();
       console.log($rootScope.user);
-      $state.go('app.profile');
+      $state.go('app.home');
       $ionicLoading.hide();
       $rootScope.logged = true;
     }, function(error) {
@@ -115,4 +120,18 @@ angular.module('starter')
     $rootScope.fblogged = false;
     $rootScope.logged = false;
   }
+
+  $ionicModal.fromTemplateUrl('templates/terms.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+
 })

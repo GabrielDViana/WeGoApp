@@ -1,0 +1,30 @@
+.header-register {
+  font-size: 28px;
+}
+.fields {
+  margin-top: 30%;
+}
+.labels {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.inputs-register{
+  border-radius: 5px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.distance {
+  margin-top: 20px;
+}
+.terms {
+  font-size: 12px;
+}
+input[type=password], input[type=text], input[type=date]{
+  font-size: 18px;
+  line-height: 18px;
+  float: left;
+  border: 0;
+  display: block;
+  margin: 0;
+  height: 20px;
+}
