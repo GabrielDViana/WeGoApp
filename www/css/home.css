@@ -38,10 +38,3 @@ input[type=password], input[type=text] {
 .dist{
   margin-top: 40px;
 }
-.ion-custom-person:before {
-  content: url('../img/ionic.png') !important;
-}
-
-.ion-custom-lock:before {
-  content: url('../img/Senha.psd') !important;
-}

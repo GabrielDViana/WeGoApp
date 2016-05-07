@@ -25,7 +25,29 @@ angular.module('starter')
           authData.facebook.id
         );
         factoryRegister.save(serviceLogin.getUser());
-        $state.go('app.profile');
+        $state.go('app.home');
+        $rootScope.user = serviceLogin.getUser();
+        console.log("User:", $rootScope.user);
+      }
+    }, {
+      remember: "sessionOnly",
+      scope: "email, user_likes"
+    });
+  }
+  $scope.loginTwitter = function() {
+
+    ref.authWithOAuthPopup("twitter", function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Data from Firebase:", authData);
+        serviceLogin.setUser(
+          authData.twitter.displayName,
+          authData.twitter.email,
+          authData.twitter.id
+        );
+        factoryRegister.save(serviceLogin.getUser());
+        $state.go('app.home');
         $rootScope.user = serviceLogin.getUser();
         console.log("User:", $rootScope.user);
       }
