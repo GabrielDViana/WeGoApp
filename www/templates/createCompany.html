@@ -1,0 +1,9 @@
+<ion-view class="background ">
+<div>
+  <button class=" btCamera font button button-block button-stable icon ion-ios-camera" ng-click="getFoto()"> Câmera</button>
+</div>
+<div>
+  <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="getFoto(Camera.PictureSourceType.PHOTOLIBRARY)"> Câmera</button>
+</div>
+  <img ng-src="{{collection.selectedImage}}" style="width:100%; height: auto;"/>
+</ion-view>

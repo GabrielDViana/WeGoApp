@@ -67,6 +67,15 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
           }
         }
       })
+      .state('app.createcompany', {
+        url: '/createcompany',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/createCompany.html',
+            controller: 'createCompanyCtrl'
+          }
+        }
+      })
       ;
   $urlRouterProvider.otherwise("app/home");
 })
