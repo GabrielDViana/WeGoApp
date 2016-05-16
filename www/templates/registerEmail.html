@@ -31,8 +31,8 @@
       <div class="row labels">
         <div class="col col-40">
           <span>Data de nascimento:</span>
-          <ionic-datepicker idate="currentDate" disablepreviousdates="true"  ng-click="openDatePicker()">
-            <button class="button button-block icon-right ion-calendar"> {{ currentDate | date:'dd/MM/yy' }}</button>
+          <ionic-datepicker ion-datetime-picker date="dateValue" min="minDate" max="maxDate" callback="datePickerCallback" date ng-model="user.birthday">
+            <button class="button button-block icon-right ion-calendar"> {{ user.birthday | date:'dd/MM/yy' }}</button>
           </ionic-datepicker>
         </div>
         <div class="col col-40">

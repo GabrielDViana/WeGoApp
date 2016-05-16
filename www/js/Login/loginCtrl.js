@@ -2,7 +2,7 @@ angular.module('starter')
 
 .controller('loginCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, factoryRegister, factoryLogin, serviceLogin,
-  ionicMaterialInk, $timeout, ionicDatePicker, $ionicModal) {
+  ionicMaterialInk, $timeout, $ionicPickerI18n, $ionicModal) {
 
   $scope.$parent.clearFabs();
   $timeout(function() {
@@ -57,20 +57,15 @@ angular.module('starter')
     });
   }
 
-  $scope.currentDate = "";
-  var birthday = {
-      callback: function (val) {
-        console.log('Return value from the datepicker popup is : ' + val, $scope.currentDate = new Date(val));
-      },
-      from: new Date(1900, 1, 1),
-      to: new Date(2000, 10, 30),
-      inputDate: new Date(),
-      closeOnSelect: true,
-      templateType: 'popup'
-    };
+  $scope.minDate = new Date(2105, 6, 1);
+  $scope.maxDate = new Date(2015, 6, 31);
 
-  $scope.openDatePicker = function(){
-    ionicDatePicker.openDatePicker(birthday);
+  $scope.datePickerCallback = function (val) {
+  	if (!val) {
+  		console.log('Date not selected');
+  	} else {
+  		console.log('Selected date is : ', val);
+  	}
   };
 
   $scope.loginEmail = function(user) {
@@ -81,17 +76,16 @@ angular.module('starter')
       serviceLogin.setUser(
         user.name,
         user.email,
-        user.token
+        user.auth_token
       );
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: 'Logado!',
         template: '{{user}}'
       });
-      factoryRegister.save(serviceLogin.getUser());
       $rootScope.user = serviceLogin.getUser();
       console.log($rootScope.user);
-      $state.go('app.home');
+      $state.go('app.createcompany');
       $ionicLoading.hide();
       $rootScope.logged = true;
     }, function(error) {
@@ -104,7 +98,6 @@ angular.module('starter')
   }
 
   $scope.registerEmail = function(user) {
-    user.birthday = $scope.currentDate;
     $ionicLoading.show({
       template: 'Loading...'
     });

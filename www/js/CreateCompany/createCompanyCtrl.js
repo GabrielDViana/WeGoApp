@@ -1,8 +1,8 @@
 angular.module('starter')
 
 .controller('createCompanyCtrl', function($ionicPopup ,$scope, $state, $stateParams,
-  $rootScope, $ionicLoading, ionicMaterialInk, $timeout, ionicDatePicker,
-  serviceCreateCompany, factoryCreateCompany, $cordovaCamera) {
+  $rootScope, $ionicLoading, ionicMaterialInk, $timeout, $ionicPickerI18n,
+  serviceCreateCompany, factoryCreateCompany, $cordovaCamera, serviceLogin) {
 
   $scope.getFoto = function (){
     var options = {
@@ -57,8 +57,29 @@ angular.module('starter')
   }
 
 
+  $scope.createCompany = function(company) {
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    $scope.user = serviceLogin.getUser();
+    company.auth_token = $scope.user.auth_token;
+    console.log(company);
+    factoryCreateCompany.save(company, function(company) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Sucesso!',
+        template: 'Empresa registrada!'
+      });
+      console.log(company);
+    }, function(error) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Erro!',
+        template: 'Cadastro falhou, verifique os dados'
+      });
+    });
+  }
 
-
-  $scope.company = serviceCreateCompany.getCompany();
+    $scope.company = serviceCreateCompany.getCompany();
 
 })

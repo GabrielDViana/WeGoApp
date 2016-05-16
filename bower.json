@@ -8,6 +8,7 @@
     "firebase": "^2.4.2",
     "angularfire": "^1.2.0",
     "angular-resource": "^1.5.5",
-    "ionic-datepicker": "^1.1.0"
+    "ionic-datepicker": "^1.1.0",
+    "ion-datetime-picker": "^0.1.3"
   }
 }
