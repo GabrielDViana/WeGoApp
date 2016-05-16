@@ -1,18 +1,20 @@
 <ion-view class="background ">
-  <div class="fields">
-    <div class="distance">
+  <leaflet lf-center="actual" event-broadcast="events" markers="markers" height="200px" width="100%"></leaflet>
+    <p>Actual marker position (lat/lng): <strong  ng-bind="position.lat" ng-model="company.latitude"></strong> / <strong ng-bind="position.lng"ng-model="company.longitude"></strong></p>
+  <div>
+    <div>
       <span class="labels">Nome:</span>
       <label class="item item-input inputs-register">
         <input type="text" ng-model='company.name' >
       </label>
     </div>
-    <div class="distance">
+    <div>
       <span class="labels">Descrição:</span>
       <label class="item item-input inputs-register">
         <input type="text" ng-model='company.description' >
       </label>
     </div>
-    <div class="distance">
+    <div>
       <span class="labels">Endereço:</span>
       <label class="item item-input inputs-register">
         <input type="text" ng-model= "company.adress">
@@ -20,13 +22,13 @@
     </div>
     <div class="row labels">
       <div class="col col-40">
-        <span>Horario de abertura:</span>
+        <span>Abertura:</span>
         <ionic-datepicker type="time" ion-datetime-picker time ng-model="company.time_opens">
           <button class="button button-block icon-right ion-calendar"> {{ company.time_opens | date:'H:mm' }}</button>
         </ionic-datepicker>
       </div>
       <div class="col col-40">
-        <span>Horario de fechamento:</span>
+        <span>Encerramento:</span>
         <ionic-datepicker ion-datetime-picker time ng-model="company.time_closes">
           <button class="button button-block icon-right ion-calendar"> {{ company.time_closes | date:'H:mm' }}</button>
         </ionic-datepicker>

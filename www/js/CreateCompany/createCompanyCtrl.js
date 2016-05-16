@@ -2,7 +2,8 @@ angular.module('starter')
 
 .controller('createCompanyCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, $ionicPickerI18n,
-  serviceCreateCompany, factoryCreateCompany, $cordovaCamera, serviceLogin) {
+  serviceCreateCompany, factoryCreateCompany, $cordovaCamera, serviceLogin,
+  serviceLocation, $cordovaGeolocation) {
 
   $scope.getFoto = function (){
     var options = {
@@ -58,6 +59,8 @@ angular.module('starter')
 
 
   $scope.createCompany = function(company) {
+    company.latitude = $scope.position.lat;
+    company.longitude = $scope.position.lng;
     $ionicLoading.show({
       template: 'Loading...'
     });
@@ -80,6 +83,53 @@ angular.module('starter')
     });
   }
 
-    $scope.company = serviceCreateCompany.getCompany();
+  $scope.company = serviceCreateCompany.getCompany();
 
+  $cordovaGeolocation.getCurrentPosition()
+    .then(function (position) {
+      serviceLocation.setLocation(
+        position.coords.latitude,
+        position.coords.longitude
+      );
+      console.log(serviceLocation.getLocation());
+    }, function(err) {
+      // error
+      console.log("Nao foi possivel localzar seu dispositivo!");
+      console.log(err);
+    });
+    console.log(serviceLocation.getLocation());
+
+  var mainMarker = {
+    lat: 11,
+    lng: 11,
+    focus: true,
+    message: "Hey, drag me if you want",
+    draggable: true
+  };
+  var location = serviceLocation.getLocation();
+  angular.extend($scope, {
+    actual: {
+      lat: location.latitude,
+      lng: location.longitude,
+      zoom: 8
+    },
+    markers: {
+        mainMarker: angular.copy(mainMarker)
+    },
+    position: {
+        lat: 51,
+        lng: 0
+    },
+    events: { // or just {} //all events
+        markers:{
+          enable: [ 'dragend' ]
+          //logic: 'emit'
+        }
+    }
+  });
+
+  $scope.$on("leafletDirectiveMarker.dragend", function(event, args){
+    $scope.position.lat = args.model.lat;
+    $scope.position.lng = args.model.lng;
+  });
 })
