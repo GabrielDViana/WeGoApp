@@ -17,12 +17,14 @@
         <input type="password" placeholder="Senha" class="height" ng-model="user.password">
       </label>
     </div>
-    <div class="row">
-      <div class="col col-33"></div>
-      <div class="col col-33 col-center">
+    <div class="row labels">
+      <div class="col col-40">
         <input type="submit" class="button button-balanced button-block icon-left " ng-click="loginEmail(user)" value="Logar" />
       </div>
-      <div class="col col-33"></div>
+      <div class="col col-40">
+      <button class="button button-positive icon ion-social-facebook-outline" ng-click="loginFacebook()"></button>
+      <button class="button button-calm icon ion-social-twitter-outline" ng-click="loginTwitter()"></button>
+      </div>
     </div>
 
     <div class="row">

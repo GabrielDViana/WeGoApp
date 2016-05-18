@@ -1,0 +1,40 @@
+<ion-view>
+  <div class="bar bar-header bar-balanced">
+    <h1 class="title">CADASTRAR-SE</h1>
+  </div>
+  <ion-content scroll="false" ng-class="{expanded:$scope.isExpanded}">
+    <div class="fields">
+      <div class="distance">
+        <span class="labels">Email:</span>
+        <label class="item item-input inputs-register">
+          <input type="text" ng-model='user.email' >
+        </label>
+      </div>
+      <div class="row labels">
+        <div class="col col-40">
+          <span>Data de nascimento:</span>
+          <ionic-datepicker ion-datetime-picker date="dateValue" min="minDate" max="maxDate" callback="datePickerCallback" date ng-model="user.birthday">
+            <button class="button button-block icon-right ion-calendar"> {{ user.birthday | date:'dd/MM/yy' }}</button>
+          </ionic-datepicker>
+        </div>
+        <div class="col col-40">
+          <span>Sexo:</span>
+          <select style="border-radius: 5px;margin-top:5px;"class="item item-select" ng-model="user.gender">
+            <option ng-selected="true">Masculino</option>
+            <option>Feminino</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-33"></div>
+        <div class="col col-33 col-center">
+          <input type="submit" class="button button-balanced button-block icon-left " ng-click="registerTwitter(user)" value="Cadastrar" />
+        </div>
+        <div class="col col-33"></div>
+      </div>
+
+    </div>
+      <!-- Div para login com rede social  -->
+  </ion-content>
+</ion-view>

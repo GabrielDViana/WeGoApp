@@ -76,6 +76,15 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
           }
         }
       })
+      .state('app.twitterregister', {
+        url: '/twitterregister',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/twitterRegister.html',
+            controller: 'loginCtrl'
+          }
+        }
+      })
       ;
   $urlRouterProvider.otherwise("app/home");
 })
