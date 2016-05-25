@@ -3,8 +3,22 @@ angular.module('starter')
 .controller('createCompanyCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, $ionicPickerI18n,
   serviceCreateCompany, factoryCreateCompany, $cordovaCamera, serviceLogin,
-  serviceLocation, $cordovaGeolocation) {
+  serviceLocation, $cordovaGeolocation, $filter) {
+  $scope.today = new Date();
+  $scope.filtered = $filter('date')($scope.today, 'EEEE');
 
+  $scope.days = [
+    {id: 'Sunday', text: 'Domingo'},
+    {id: 'Monday', text: 'Segunda'},
+    {id: 'Tuesday', text: 'Terça'},
+    {id: 'Wednesday', text: 'Quarta'},
+    {id: 'Thursday', text: 'Quinta'},
+    {id: 'Friday', text: 'Sexta'},
+    {id: 'Saturday', text: 'Sábado'}
+  ];
+  $scope.company = {
+    days: []
+  };
   $scope.getFoto = function (){
     var options = {
       quality: 50,
@@ -133,3 +147,34 @@ angular.module('starter')
     $scope.position.lng = args.model.lng;
   });
 })
+
+.directive('checkList', function() {
+  return {
+    scope: {
+      list: '=checkList',
+      value: '@'
+    },
+    link: function(scope, elem, attrs) {
+      var handler = function(setup) {
+        var checked = elem.prop('checked');
+        var index = scope.list.indexOf(scope.value);
+
+        if (checked && index == -1) {
+          if (setup) elem.prop('checked', false);
+          else scope.list.push(scope.value);
+        } else if (!checked && index != -1) {
+          if (setup) elem.prop('checked', true);
+          else scope.list.splice(index, 1);
+        }
+      };
+
+      var setupHandler = handler.bind(null, true);
+      var changeHandler = handler.bind(null, false);
+
+      elem.on('change', function() {
+        scope.$apply(changeHandler);
+      });
+      scope.$watch('list', setupHandler, true);
+    }
+  };
+});

@@ -1,5 +1,5 @@
 angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
-  'ionMdInput','ionic-material','ion-datetime-picker', 'leaflet-directive'])
+  'ionMdInput','ionic-material','ion-datetime-picker', 'leaflet-directive', 'checklist-model'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

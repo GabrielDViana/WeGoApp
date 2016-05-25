@@ -1,7 +1,13 @@
-<ion-view class="background ">
+<ion-view class="background">
   <leaflet lf-center="actual" event-broadcast="events" markers="markers" height="200px" width="100%"></leaflet>
     <p>Actual marker position (lat/lng): <strong  ng-bind="position.lat" ng-model="company.latitude"></strong> / <strong ng-bind="position.lng"ng-model="company.longitude"></strong></p>
   <div>
+    <label ng-repeat="day in days">
+    <ion-checkbox checklist-model="company.days" checklist-value="day.id"> {{day.text}}
+  </label>
+  <p style="color:white;">
+    company.days {{ company.days | json }}
+  </p>
     <div>
       <span class="labels">Nome:</span>
       <label class="item item-input inputs-register">
