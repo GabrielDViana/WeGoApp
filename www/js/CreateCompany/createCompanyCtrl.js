@@ -17,7 +17,7 @@ angular.module('starter')
     {id: 'Saturday', text: 'Sábado'}
   ];
   $scope.company = {
-    days: []
+    days: {}
   };
   $scope.getFoto = function (){
     var options = {
@@ -111,70 +111,51 @@ angular.module('starter')
       console.log("Nao foi possivel localzar seu dispositivo!");
       console.log(err);
     });
-    console.log(serviceLocation.getLocation());
+    angular.extend($scope, {
+      center: {
+        lat: -15,
+        lng: -48,
+        zoom: 3
+      }
+    });
+  $scope.locate = function() {
+      console.log(serviceLocation.getLocation());
 
-  var mainMarker = {
-    lat: 11,
-    lng: 11,
-    focus: true,
-    message: "Hey, drag me if you want",
-    draggable: true
-  };
-  var location = serviceLocation.getLocation();
-  angular.extend($scope, {
-    actual: {
-      lat: location.latitude,
-      lng: location.longitude,
-      zoom: 8
-    },
-    markers: {
-        mainMarker: angular.copy(mainMarker)
-    },
-    position: {
-        lat: 51,
-        lng: 0
-    },
-    events: { // or just {} //all events
-        markers:{
-          enable: [ 'dragend' ]
-          //logic: 'emit'
-        }
-    }
-  });
-
-  $scope.$on("leafletDirectiveMarker.dragend", function(event, args){
-    $scope.position.lat = args.model.lat;
-    $scope.position.lng = args.model.lng;
-  });
-})
-
-.directive('checkList', function() {
-  return {
-    scope: {
-      list: '=checkList',
-      value: '@'
-    },
-    link: function(scope, elem, attrs) {
-      var handler = function(setup) {
-        var checked = elem.prop('checked');
-        var index = scope.list.indexOf(scope.value);
-
-        if (checked && index == -1) {
-          if (setup) elem.prop('checked', false);
-          else scope.list.push(scope.value);
-        } else if (!checked && index != -1) {
-          if (setup) elem.prop('checked', true);
-          else scope.list.splice(index, 1);
-        }
+      $scope.location = serviceLocation.getLocation();
+      var mainMarker = {
+        lat: $scope.location.latitude,
+        lng: $scope.location.longitude,
+        zoom: 8,
+        focus: true,
+        message: "Hey, Me arraste para a localização do seu negócio!",
+        draggable: true
       };
-
-      var setupHandler = handler.bind(null, true);
-      var changeHandler = handler.bind(null, false);
-
-      elem.on('change', function() {
-        scope.$apply(changeHandler);
+      angular.extend($scope, {
+        center: {
+            lat: $scope.location.latitude,
+            lng: $scope.location.longitude,
+            zoom: 10
+        },
+        markers: {
+            mainMarker: angular.copy(mainMarker)
+        },
+        position: {
+            lat: $scope.location.latitude,
+            lng: $scope.location.longitude,
+            zoom: 8
+        },
+        events: { // or just {} //all events
+            markers:{
+              enable: [ 'dragend' ]
+              //logic: 'emit'
+            }
+        }
       });
-      scope.$watch('list', setupHandler, true);
-    }
+
+      $scope.$on("leafletDirectiveMarker.dragend", function(event, args){
+        $scope.position.lat = args.model.lat;
+        $scope.position.lng = args.model.lng;
+      });
   };
-});
+
+})
