@@ -3,13 +3,7 @@
     <button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>
   <leaflet lf-center="center" event-broadcast="events" markers="markers" height="200px" width="100%"></leaflet>
     <p>Actual marker position (lat/lng): <strong  ng-bind="position.lat" ng-model="company.latitude"></strong> / <strong ng-bind="position.lng"ng-model="company.longitude"></strong></p>
-  <div>
-    <label ng-repeat="day in days">
-    <ion-checkbox checklist-model="company.days" checklist-value="day.id"> {{day.text}}
-  </label>
-  <p style="color:white;">
-    company.days {{ company.days | json }}
-  </p>
+
     <div>
       <span class="labels">Nome:</span>
       <label class="item item-input inputs-register">
@@ -42,7 +36,13 @@
         </ionic-datepicker>
       </div>
     </div>
-
+    <div>
+      <label ng-repeat="day in days">
+      <ion-checkbox checklist-model="company.days" checklist-value="day.id"> {{day.text}}
+    </label>
+    <p style="color:white;">
+      company.days {{ company.days | json }}
+    </p>
     <div class="row">
       <div class="col col-33"></div>
       <div class="col col-33 col-center">

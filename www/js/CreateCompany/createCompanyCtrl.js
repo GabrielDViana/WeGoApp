@@ -73,6 +73,8 @@ angular.module('starter')
 
 
   $scope.createCompany = function(company) {
+    company.time_opens = $filter('date')(company.time_opens, 'HH:mm');
+    company.time_closes = $filter('date')(company.time_closes, 'HH:mm');
     company.latitude = $scope.position.lat;
     company.longitude = $scope.position.lng;
     $ionicLoading.show({
@@ -80,7 +82,7 @@ angular.module('starter')
     });
     $scope.user = serviceLogin.getUser();
     company.auth_token = $scope.user.auth_token;
-    console.log(company);
+    console.log("BF create",company);
     factoryCreateCompany.save(company, function(company) {
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -127,7 +129,7 @@ angular.module('starter')
         lng: $scope.location.longitude,
         zoom: 8,
         focus: true,
-        message: "Hey, Me arraste para a localização do seu negócio!",
+        message: "Hey, Me arraste para a localização do seu negó",
         draggable: true
       };
       angular.extend($scope, {

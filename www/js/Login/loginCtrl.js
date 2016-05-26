@@ -152,7 +152,7 @@ angular.module('starter')
         title: 'Sucesso!',
         template: 'Logado com sucesso!'
       });
-      console.log(user);
+      console.log("BF create", user);
     }, function(error) {
       $ionicLoading.hide();
       $ionicPopup.alert({
