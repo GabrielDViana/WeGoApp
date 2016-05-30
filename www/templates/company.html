@@ -10,6 +10,14 @@
 
   <div class="item item-body">
     <img class="full-image" ng-src="img/ionic.png">
+    <div>
+      <ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>
+      <div class="button-bar">
+        <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="submitRatig()">
+          Enviar avaliação
+        </button>
+      </div>
+    </div>
     <p>
       {{comp.description}}
     </p>

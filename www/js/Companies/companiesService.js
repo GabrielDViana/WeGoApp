@@ -4,9 +4,10 @@ angular.module('starter')
 
   var company = {}
 
-  var setCompany = function(name, description, adress, latitude, longitude,
+  var setCompany = function(name, id, description, adress, latitude, longitude,
     token, days, time_opens, time_closes) {
     company.name = name,
+    company.id = id,
     company.description = description,
     company.adress = adress,
     company.latitude = latitude,

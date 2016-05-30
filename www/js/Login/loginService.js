@@ -8,7 +8,7 @@ angular.module('starter')
     user.name = name,
     user.email = email,
     user.auth_token = auth_token,
-    user.birthday = birthday
+    user.birthday = birthday,
     user.gender = gender
   }
 

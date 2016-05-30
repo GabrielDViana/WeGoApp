@@ -2,7 +2,8 @@ angular.module('starter')
 
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
-  serviceLogin, serviceLocation, serviceCompany, $cordovaGeolocation, $filter) {
+  serviceLogin, serviceLocation, serviceCompany, $cordovaGeolocation, $filter,
+  factoryRating) {
 
   $scope.today = new Date();
   $scope.filtered = $filter('date')($scope.today, 'EEEE');
@@ -37,6 +38,7 @@ angular.module('starter')
   $scope.viewCompany = function(company) {
     serviceCompany.setCompany(
       company.name,
+      company.id,
       company.description,
       company.adress,
       company.latitude,
@@ -51,5 +53,54 @@ angular.module('starter')
     $rootScope.comp = serviceCompany.getCompany();
     console.log($rootScope.comp);
   };
+
+  $scope.myTitle = 'IONIC RATINGS DEMO';
+
+  $scope.ratingsObject = {
+    iconOn: 'ion-ios-star',
+    iconOff: 'ion-ios-star-outline',
+    iconOnColor: 'rgb(200, 200, 100)',
+    iconOffColor: 'rgb(200, 100, 100)',
+    rating: 4,
+    minRating: 0,
+    readOnly:false,
+    callback: function(rating) {
+      $scope.ratingsCallback(rating);
+    }
+  };
+
+  $scope.ratingsCallback = function(rating) {
+    $scope.rate = rating;
+    console.log('Selected rating is : ', rating);
+  };
+
+
+  $scope.submitRatig = function() {
+    var rating = {};
+    console.log(serviceLogin.getUser().auth_token, serviceCompany.getCompany().id,
+  $scope.rate);
+
+    rating.user_auth_token = serviceLogin.getUser().auth_token;
+    rating.company_token = serviceCompany.getCompany().token;
+    rating.id = serviceCompany.getCompany().id;
+    rating.rate = $scope.rate;
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    factoryRating.save(rating, function(rating) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Sucesso!',
+        template: 'Avaliação submetida com sucesso!'
+      });
+      console.log("BF create", rating);
+    }, function(error) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Erro!',
+        template: 'Cadastro falhou, verifique os dados ou se o email ja foi cadastrado'
+      });
+    });
+  }
 
 })
