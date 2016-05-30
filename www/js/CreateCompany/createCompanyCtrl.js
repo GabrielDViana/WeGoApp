@@ -2,8 +2,46 @@ angular.module('starter')
 
 .controller('createCompanyCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, $ionicPickerI18n,
-  serviceCreateCompany, factoryCreateCompany, $cordovaCamera, serviceLogin,
+  serviceCreateCompany, factoryCreateCompany, $cordovaCamera, $cordovaImagePicker, serviceLogin,
   serviceLocation, $cordovaGeolocation, $filter) {
+
+    $scope.selImages = function() {
+       var options = {
+         maximumImagesCount: 10,
+         width: 800,
+         height: 800,
+         quality: 80
+       };
+
+       $cordovaImagePicker.getPictures(options)
+           .then(function (results) {
+             for (var i = 0; i < results.length; i++) {
+
+               console.log('Image URI: ' + results[i]);
+               $scope.imageUri = results[i];
+               // Encode URI to Base64
+               window.plugins.Base64.encodeFile($scope.imageUri, function(base64){
+                  // Save images in Base64
+                  $scope.images.push(base64);
+               });
+               $ionicPopup.alert({
+                 title: 'Sucesso!',
+                 template: '{{$scope.images}}'
+               });
+             }
+             if(!$scope.$$phase) {
+               $scope.$apply();
+             }
+           }, function(error) {
+             // error getting photos
+           });
+
+     };
+
+     $scope.removeImage = function(image) {
+       $scope.images = _.without($scope.images, image);
+     };
+
   $scope.today = new Date();
   $scope.filtered = $filter('date')($scope.today, 'EEEE');
 

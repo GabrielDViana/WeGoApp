@@ -1,0 +1,27 @@
+<ion-view view-title="Perfil">
+  <ion-content ng-class="{expanded:$scope.isExpanded}">
+    <div class="profile-info text-center">
+      <img class="profile-image" ng-if="fblogged" ng-src="https://graph.facebook.com/{{ user.idFacebook }}/picture?width=700&height=700">
+      <img class="profile-image" ng-if="!fblogged" ng-src="img/ionic.png">
+      <h2>{{user.name}}</h2>
+      <p>{{user.email}}</p>
+    </div>
+    <div class="padding">
+      <div class="button-bar">
+        <button ui-sref="app.createcompany"class="button button-small button-positive light-bg waves-effect waves-button waves-light">
+          Novo serviço
+        </button>
+      </div>
+      <div class="button-bar">
+        <button ui-sref="app.companies"class="button button-small button-positive light-bg waves-effect waves-button waves-light">
+          Serviços disponiveis
+        </button>
+      </div>
+      <div class="button-bar">
+        <button class="button button-small button-positive light-bg waves-effect waves-button waves-light"ng-click="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

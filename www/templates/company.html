@@ -1,0 +1,30 @@
+<ion-view view-title="Perfil">
+  <ion-content ng-class="{expanded:$scope.isExpanded}">
+    <div class="list card">
+
+  <div class="item item-avatar">
+    <img ng-src="img/ionic.png">
+    <h2>{{comp.name}}</h2>
+    <p>{{comp.adress}}</p>
+  </div>
+
+  <div class="item item-body">
+    <img class="full-image" ng-src="img/ionic.png">
+    <p>
+      {{comp.description}}
+    </p>
+    <p>
+      {{comp.time_opens | date:'H:mm'}}
+    </p>
+    <p>
+      {{comp.time_closes | date:'H:mm'}}
+    </p>
+    <p>
+      <a href="#" class="subdued">1 Like</a>
+      <a href="#" class="subdued">5 Comments</a>
+    </p>
+  </div>
+
+</div>
+  </ion-content>
+</ion-view>

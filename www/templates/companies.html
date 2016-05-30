@@ -1,0 +1,12 @@
+<ion-view view-title="Empresas e Serviços">
+  <ion-content ng-class="{expanded:$scope.isExpanded}">
+    <ion-list ng-repeat="company in companys">
+      <a class="item item-thumbnail-left" ng-click="viewCompany(company)">
+        <img ng-if="!fblogged" ng-src="img/ionic.png">
+        <h2>{{company.name}}</h2>
+        <p>{{company.description}}</p>
+        <p>{{company.adress}}</p>
+      </a>
+    </ion-list>
+  </ion-content>
+</ion-view>

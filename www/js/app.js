@@ -85,6 +85,33 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
           }
         }
       })
+      .state('app.profile', {
+        url: '/profile',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/profile.html',
+            controller: 'loginCtrl'
+          }
+        }
+      })
+      .state('app.companies', {
+        url: '/companies',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/companies.html',
+            controller: 'CompaniesCtrl'
+          }
+        }
+      })
+      .state('app.company', {
+        url: '/company',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/company.html',
+            controller: 'CompaniesCtrl'
+          }
+        }
+      })
       ;
   $urlRouterProvider.otherwise("app/home");
 })

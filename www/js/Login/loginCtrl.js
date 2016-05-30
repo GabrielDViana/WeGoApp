@@ -130,7 +130,7 @@ angular.module('starter')
       });
       $rootScope.user = serviceLogin.getUser();
       console.log($rootScope.user);
-      $state.go('app.createcompany');
+      $state.go('app.profile');
       $ionicLoading.hide();
       $rootScope.logged = true;
     }, function(error) {
