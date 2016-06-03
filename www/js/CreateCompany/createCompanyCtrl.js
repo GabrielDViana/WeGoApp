@@ -127,6 +127,7 @@ angular.module('starter')
         title: 'Sucesso!',
         template: 'Empresa registrada!'
       });
+      $state.go('app.profile');
       console.log(company);
     }, function(error) {
       $ionicLoading.hide();

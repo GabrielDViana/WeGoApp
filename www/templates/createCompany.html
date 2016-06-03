@@ -1,35 +1,35 @@
 <ion-view class="background">
   <ion-content scroll="true">
-    <button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>
+    <button ng-click="locate();" class="button button-positive button-icon icon ion-pinpoint">Localizar</button>
   <leaflet lf-center="center" event-broadcast="events" markers="markers" height="200px" width="100%"></leaflet>
-    <p>Actual marker position (lat/lng): <strong  ng-bind="position.lat" ng-model="company.latitude"></strong> / <strong ng-bind="position.lng"ng-model="company.longitude"></strong></p>
+    <strong style="visibility: hidden;" ng-bind="position.lat" ng-model="company.latitude"></strong> / <strong style="visibility: hidden;" ng-bind="position.lng"ng-model="company.longitude"></strong>
 
     <div>
-      <span class="labels">Nome:</span>
+      <span style="color:white;" class="labels">Nome:</span>
       <label class="item item-input inputs-register">
         <input type="text" ng-model='company.name' >
       </label>
     </div>
     <div>
-      <span class="labels">Descrição:</span>
+      <span style="color:white;" class="labels">Descrição:</span>
       <label class="item item-input inputs-register">
         <input type="text" ng-model='company.description' >
       </label>
     </div>
     <div>
-      <span class="labels">Endereço:</span>
+      <span style="color:white;" class="labels">Endereço:</span>
       <label class="item item-input inputs-register">
         <input type="text" ng-model= "company.adress">
       </label>
     </div>
-    <div class="row labels">
+    <div style="color:white;" class="row labels"style="color:white;">
       <div class="col col-40">
         <span>Abertura:</span>
         <ionic-datepicker type="time" ion-datetime-picker time ng-model="company.time_opens">
           <button class="button button-block icon-right ion-calendar"> {{ company.time_opens | date:'H:mm' }}</button>
         </ionic-datepicker>
       </div>
-      <div class="col col-40">
+      <div style="color:white;" class="col col-40">
         <span>Encerramento:</span>
         <ionic-datepicker ion-datetime-picker time ng-model="company.time_closes">
           <button class="button button-block icon-right ion-calendar"> {{ company.time_closes | date:'H:mm' }}</button>

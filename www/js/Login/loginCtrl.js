@@ -126,10 +126,6 @@ angular.module('starter')
         user.gender
       );
       $ionicLoading.hide();
-      $ionicPopup.alert({
-        title: 'Logado!',
-        template: '{{user}}'
-      });
       $rootScope.user = serviceLogin.getUser();
       console.log($rootScope.user);
       $state.go('app.profile');
@@ -152,8 +148,9 @@ angular.module('starter')
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: 'Sucesso!',
-        template: 'Logado com sucesso!'
+        template: 'Cadastro efetuado com sucesso!'
       });
+      $state.go('app.home');
       console.log("BF create", user);
     }, function(error) {
       $ionicLoading.hide();
