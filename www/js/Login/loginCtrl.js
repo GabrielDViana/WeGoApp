@@ -121,7 +121,9 @@ angular.module('starter')
       serviceLogin.setUser(
         user.name,
         user.email,
-        user.auth_token
+        user.auth_token,
+        user.birthday,
+        user.gender
       );
       $ionicLoading.hide();
       $ionicPopup.alert({

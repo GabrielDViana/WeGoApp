@@ -12,7 +12,7 @@
         </button>
       </div>
     </div>
-    <div class="item item-avatar">
+    <div class="item item-avatar" ng-controller="UsersCtrl" ng-click="viewUser(comp.user.token)" >
       <img ng-src="img/ionic.png">
       <h2>Usuário Responsavel</h2>
       <h3>{{comp.user.name}}</h3>
