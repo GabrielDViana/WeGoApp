@@ -12,8 +12,8 @@
           Novo serviço
         </button>
       </div>
-      <div class="button-bar">
-        <button ui-sref="app.companies"class="button button-small button-positive light-bg waves-effect waves-button waves-light">
+      <div class="button-bar" ng-controller="CompaniesCtrl">
+        <button ui-sref="app.companies"class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="allCompanies()">
           Serviços disponiveis
         </button>
       </div>

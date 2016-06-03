@@ -8,7 +8,17 @@ angular.module('starter')
             }
     })
 })
- 
+
+.factory('factoryCompany', function($resource) {
+  return $resource("http://localhost:3000/company/show/", {}, {
+      'get': { method:'GET',
+                  params:{  token:'@token' }
+      }
+
+  })
+})
+
+
 .factory('factoryRating', function($resource) {
   return $resource("http://localhost:3000/company/rate")
 })

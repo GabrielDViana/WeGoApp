@@ -48,3 +48,6 @@ input[type=password], input[type=text] {
   margin-top: 25%;
   filter: contrast(1.5);
 }
+.social-buttons{
+  margin-top: 2.75%;
+}

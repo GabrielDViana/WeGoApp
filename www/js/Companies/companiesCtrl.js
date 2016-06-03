@@ -3,7 +3,7 @@ angular.module('starter')
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
   serviceLogin, serviceLocation, serviceCompany, $cordovaGeolocation, $filter,
-  factoryRating) {
+  factoryRating, factoryCompany) {
 
   $scope.today = new Date();
   $scope.filtered = $filter('date')($scope.today, 'EEEE');
@@ -20,37 +20,38 @@ angular.module('starter')
   $scope.company = {
     days: {}
   };
+  $scope.allCompanies = function() {
+    factoryCompanies.get(function(company) {
+      $ionicLoading.hide();
+      $rootScope.companys = company;
+      console.log($rootScope.companys);
+      $ionicLoading.hide();
+    }, function(error) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Erro!',
+        template: 'Falhou'
+      });
+    })
+  }
 
-  factoryCompanies.get(function(company) {
-    $ionicLoading.hide();
-    $rootScope.companys = company;
-    console.log($rootScope.companys);
-    $ionicLoading.hide();
-  }, function(error) {
-    $ionicLoading.hide();
-    $ionicPopup.alert({
-      title: 'Erro!',
-      template: 'Falhou'
-    });
-  })
-
-
-  $scope.viewCompany = function(company) {
-    serviceCompany.setCompany(
-      company.name,
-      company.id,
-      company.description,
-      company.adress,
-      company.latitude,
-      company.longitude,
-      company.token,
-      company.days,
-      company.time_opens,
-      company.time_closes
-    )
+  $scope.viewCompany = function(token) {
+    factoryCompany.get({
+      token: token
+    }, function(company) {
+      $ionicLoading.hide();
+      $rootScope.comp = company;
+      console.log($rootScope.comp);
+      $ionicLoading.hide();
+    }, function(error) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Erro!',
+        template: 'Falhou'
+      });
+    })
 
     $state.go('app.company');
-    $rootScope.comp = serviceCompany.getCompany();
     console.log($rootScope.comp);
   };
 

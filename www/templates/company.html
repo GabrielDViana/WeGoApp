@@ -2,12 +2,6 @@
   <ion-content ng-class="{expanded:$scope.isExpanded}">
     <div class="list card">
 
-  <div class="item item-avatar">
-    <img ng-src="img/ionic.png">
-    <h2>{{comp.name}}</h2>
-    <p>{{comp.adress}}</p>
-  </div>
-
   <div class="item item-body">
     <img class="full-image" ng-src="img/ionic.png">
     <div>
@@ -17,6 +11,12 @@
           Enviar avaliação
         </button>
       </div>
+    </div>
+    <div class="item item-avatar">
+      <img ng-src="img/ionic.png">
+      <h2>Usuário Responsavel</h2>
+      <h3>{{comp.user.name}}</h3>
+      <p>{{comp.user.email}}</p>
     </div>
     <p>
       {{comp.description}}
