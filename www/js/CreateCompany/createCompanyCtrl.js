@@ -2,8 +2,25 @@ angular.module('starter')
 
 .controller('createCompanyCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, $ionicPickerI18n,
-  serviceCreateCompany, factoryCreateCompany, $cordovaCamera, $cordovaImagePicker, serviceLogin,
-  serviceLocation, $cordovaGeolocation, $filter) {
+  serviceCreateCompany, factoryCreateCompany, $cordovaCamera, $cordovaImagePicker,
+  serviceLogin, NgMap, serviceLocation, $filter) {
+
+
+  $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAPfi0mlLEsRQf96-64bONF7DoLxYtLwRY";
+
+  $scope.marker;
+  var vm = this;
+  NgMap.getMap().then(function(map) {
+    vm.map = map;
+    $scope.marker = map.markers[0];
+    console.log('latitude',$scope.marker.position.lat());
+    console.log('longitude',$scope.marker.position.lng());
+  });
+  vm.click = function(event) {
+    vm.map.setCenter($scope.marker.getPosition());
+    console.log('latitude',$scope.marker.position.lat());
+    console.log('longitude',$scope.marker.position.lng());
+  }
 
     $scope.selImages = function() {
        var options = {
@@ -113,8 +130,8 @@ angular.module('starter')
   $scope.createCompany = function(company) {
     company.time_opens = $filter('date')(company.time_opens, 'HH:mm');
     company.time_closes = $filter('date')(company.time_closes, 'HH:mm');
-    company.latitude = $scope.position.lat;
-    company.longitude = $scope.position.lng;
+    company.latitude = $scope.marker.position.lat();
+    company.longitude =$scope.marker.position.lng();
     $ionicLoading.show({
       template: 'Loading...'
     });
@@ -137,66 +154,5 @@ angular.module('starter')
       });
     });
   }
-
-  $scope.company = serviceCreateCompany.getCompany();
-
-  $cordovaGeolocation.getCurrentPosition()
-    .then(function (position) {
-      serviceLocation.setLocation(
-        position.coords.latitude,
-        position.coords.longitude
-      );
-      console.log(serviceLocation.getLocation());
-    }, function(err) {
-      // error
-      console.log("Nao foi possivel localzar seu dispositivo!");
-      console.log(err);
-    });
-    angular.extend($scope, {
-      center: {
-        lat: -15,
-        lng: -48,
-        zoom: 3
-      }
-    });
-  $scope.locate = function() {
-      console.log(serviceLocation.getLocation());
-
-      $scope.location = serviceLocation.getLocation();
-      var mainMarker = {
-        lat: $scope.location.latitude,
-        lng: $scope.location.longitude,
-        zoom: 8,
-        focus: true,
-        message: "Hey, Me arraste para a localização do seu negó",
-        draggable: true
-      };
-      angular.extend($scope, {
-        center: {
-            lat: $scope.location.latitude,
-            lng: $scope.location.longitude,
-            zoom: 10
-        },
-        markers: {
-            mainMarker: angular.copy(mainMarker)
-        },
-        position: {
-            lat: $scope.location.latitude,
-            lng: $scope.location.longitude,
-            zoom: 8
-        },
-        events: { // or just {} //all events
-            markers:{
-              enable: [ 'dragend' ]
-              //logic: 'emit'
-            }
-        }
-      });
-
-      $scope.$on("leafletDirectiveMarker.dragend", function(event, args){
-        $scope.position.lat = args.model.lat;
-        $scope.position.lng = args.model.lng;
-      });
-  };
 
 })

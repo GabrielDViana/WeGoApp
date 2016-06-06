@@ -1,9 +1,11 @@
 <ion-view class="background">
-  <ion-content scroll="true">
-    <button ng-click="locate();" class="button button-positive button-icon icon ion-pinpoint">Localizar</button>
-  <leaflet lf-center="center" event-broadcast="events" markers="markers" height="200px" width="100%"></leaflet>
-    <strong style="visibility: hidden;" ng-bind="position.lat" ng-model="company.latitude"></strong> / <strong style="visibility: hidden;" ng-bind="position.lng"ng-model="company.longitude"></strong>
-
+  <ion-content>
+    <div data-tap-disabled="true"  ng-controller="createCompanyCtrl as vm">
+      <ng-map zoom="15" center="current-location"overflow-scroll="false">
+        <marker position="current-location" title="drag me" draggable="true" on-dragend="vm.click()"></marker>
+      </ng-map>
+      <strong style="visibility: hidden;"ng-bind="marker.position.lat();" ng-model="company.latitude"></strong><strong style="visibility: hidden;" ng-bind="marker.position.lng();"ng-model="company.longitude"></strong>
+    </div>
     <div>
       <span style="color:white;" class="labels">Nome:</span>
       <label class="item item-input inputs-register">
