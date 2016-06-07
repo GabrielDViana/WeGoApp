@@ -3,7 +3,7 @@ angular.module('starter')
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
   serviceLogin, serviceLocation, serviceCompany, $cordovaGeolocation, $filter,
-  factoryRating, factoryCompany) {
+  factoryRating, factoryCompany, factoryFavorite) {
 
   $scope.today = new Date();
   $scope.filtered = $filter('date')($scope.today, 'EEEE');
@@ -82,8 +82,8 @@ angular.module('starter')
   $scope.rate);
 
     rating.user_auth_token = serviceLogin.getUser().auth_token;
-    rating.company_token = serviceCompany.getCompany().token;
-    rating.id = serviceCompany.getCompany().id;
+    rating.company_token = $rootScope.comp.token;
+    rating.id = $rootScope.comp.id;
     rating.rate = $scope.rate;
     $ionicLoading.show({
       template: 'Loading...'
@@ -100,6 +100,32 @@ angular.module('starter')
       $ionicPopup.alert({
         title: 'Erro!',
         template: 'Cadastro falhou, verifique os dados ou se o email ja foi cadastrado'
+      });
+    });
+  }
+
+  $scope.addToFavorites = function() {
+    var favorite = {};
+    console.log(serviceLogin.getUser().auth_token, serviceCompany.getCompany().id,
+  $scope.rate);
+
+    favorite.user_auth_token = serviceLogin.getUser().auth_token;
+    favorite.company_token = $rootScope.comp.token;
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    factoryFavorite.save(favorite, function(favorite) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Sucesso!',
+        template: 'Adicionado aos favoritos!'
+      });
+      console.log("BF create", favorite);
+    }, function(error) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Erro!',
+        template: 'Não foi possivel adicionar aos favoritos!'
       });
     });
   }

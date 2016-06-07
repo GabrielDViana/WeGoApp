@@ -2,9 +2,8 @@
   <ion-content>
     <div data-tap-disabled="true"  ng-controller="createCompanyCtrl as vm">
       <ng-map zoom="15" center="current-location"overflow-scroll="false">
-        <marker position="current-location" title="drag me" draggable="true" on-dragend="vm.click()"></marker>
+        <marker position="current-location" streetViewControl="false" title="drag me" draggable="true" on-dragend="vm.click()"></marker>
       </ng-map>
-      <strong style="visibility: hidden;"ng-bind="marker.position.lat();" ng-model="company.latitude"></strong><strong style="visibility: hidden;" ng-bind="marker.position.lng();"ng-model="company.longitude"></strong>
     </div>
     <div>
       <span style="color:white;" class="labels">Nome:</span>

@@ -22,3 +22,7 @@ angular.module('starter')
 .factory('factoryRating', function($resource) {
   return $resource("http://localhost:3000/company/rate")
 })
+
+.factory('factoryFavorite', function($resource) {
+  return $resource("http://localhost:3000/company/favorite")
+})

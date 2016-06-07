@@ -20,7 +20,8 @@ angular.module('starter')
     vm.map.setCenter($scope.marker.getPosition());
     console.log('latitude',$scope.marker.position.lat());
     console.log('longitude',$scope.marker.position.lng());
-  }
+    console.log($scope.marker);
+  };
 
     $scope.selImages = function() {
        var options = {
