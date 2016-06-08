@@ -7,9 +7,13 @@
 
     <img class="full-image" ng-src="img/ionic.png">
     <div>
-      <ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>
+      <rating ng-model="rating.rate" max="rating.max"></rating>
       <div class="button-bar">
-        <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="submitRatig()">
+        <label class="item item-input">
+          <span class="input-label">Comentário</span>
+          <input type="text" ng-model="comment">
+        </label>
+        <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="submitRatig(comment)">
           Enviar avaliação
         </button>
       </div>
@@ -24,21 +28,28 @@
       <p>{{comp.user.email}}</p>
     </div>
   </div>
+    <h2>Descrição</h2>
     <p>
       {{comp.description}}
     </p>
+    <h2>Dias de operação</h2>
+    <p ng-repeat="day in comp.days">
+      {{day}}
+    </p>
+    <h2>Horario de abertura</h2>
     <p>
       {{comp.time_opens | date:'H:mm'}}
     </p>
+    <h2>Horario de encerramento</h2>
     <p>
       {{comp.time_closes | date:'H:mm'}}
     </p>
+    <h2>Media de avaliações </h2>
+    <rating readonly="readOnly" ng-model="comp.average_rating"></rating>
     <p>
-      <a href="#" class="subdued">1 Like</a>
-      <a href="#" class="subdued">5 Comments</a>
+      <a class="subdued">{{comp.people_rated}} avaliações</a>
     </p>
   </div>
-
 </div>
   </ion-content>
 </ion-view>

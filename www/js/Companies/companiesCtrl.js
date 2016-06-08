@@ -3,11 +3,14 @@ angular.module('starter')
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
   serviceLogin, serviceLocation, serviceCompany, $cordovaGeolocation, $filter,
-  factoryRating, factoryCompany, factoryFavorite) {
+  factoryRating, factoryCompany, factoryFavorite, ratingConfig) {
 
   $rootScope.isOwner;
-  $scope.today = new Date();
-  $scope.filtered = $filter('date')($scope.today, 'EEEE');
+  var today = new Date();
+  var hournow = today.getTime();
+  var timeNow = $filter('date')(hournow,'HH:MM');
+  console.log(timeNow);
+  $scope.filtered = $filter('date')(today, 'EEEE');
 
   $scope.days = [
     {id: 'Sunday', text: 'Domingo'},
@@ -35,13 +38,44 @@ angular.module('starter')
       });
     })
   }
+  $scope.isOperating =function(id)  {
 
+      var sizedays = $rootScope.companys[id].days.length;
+      var open = $filter('date')( $rootScope.companys[id].time_opens, 'HH:MM');
+      var close = $filter('date')( $rootScope.companys[id].time_closes, 'HH:MM');
+      console.log(open, close);
+      for (var j = 0; j < sizedays; j++) {
+        if ($scope.filtered === $rootScope.companys[id].days[j] && timeNow >= open && timeNow < close) {
+          console.log('disponivel',$rootScope.companys[id].days[j],id);
+          var x = document.getElementsByClassName('available');
+          x[id].innerHTML = "Disponivel";
+          x[id].style.backgroundColor = "#33cd5f";
+        }
+      }
+
+  }
+  // $scope.ratingsObject = {
+  //   iconOn: 'ion-ios-star',
+  //   iconOff: 'ion-ios-star-outline',
+  //   iconOnColor: 'rgb(200, 200, 100)',
+  //   iconOffColor: 'rgb(200, 100, 100)',
+  //   rating:  3,
+  //   minRating:1,
+  //   readOnly:false,
+  //   callback: function(rating) {
+  //     $scope.ratingsCallback(rating);
+  //     $scope.rate = rating;
+  //   }
+  // };
   $scope.viewCompany = function(token) {
     factoryCompany.get({
       token: token
     }, function(company) {
       $ionicLoading.hide();
+      console.log(company);
       $rootScope.comp = company;
+
+
       if (company.user.auth_token === serviceLogin.getUser().auth_token){
         $rootScope.isOwner = true;
       }else {
@@ -61,28 +95,12 @@ angular.module('starter')
     $state.go('app.company');
   };
 
-  $scope.myTitle = 'IONIC RATINGS DEMO';
+  $scope.rating = {};
+  $scope.rating.rate = 3;
+  $scope.rating.max = 5;
+  $scope.readOnly = true;
 
-  $scope.ratingsObject = {
-    iconOn: 'ion-ios-star',
-    iconOff: 'ion-ios-star-outline',
-    iconOnColor: 'rgb(200, 200, 100)',
-    iconOffColor: 'rgb(200, 100, 100)',
-    rating: 4,
-    minRating: 0,
-    readOnly:false,
-    callback: function(rating) {
-      $scope.ratingsCallback(rating);
-    }
-  };
-
-  $scope.ratingsCallback = function(rating) {
-    $scope.rate = rating;
-    console.log('Selected rating is : ', rating);
-  };
-
-
-  $scope.submitRatig = function() {
+  $scope.submitRatig = function(comment) {
     var rating = {};
     console.log(serviceLogin.getUser().auth_token, serviceCompany.getCompany().id,
   $scope.rate);
@@ -90,7 +108,8 @@ angular.module('starter')
     rating.user_auth_token = serviceLogin.getUser().auth_token;
     rating.company_token = $rootScope.comp.token;
     rating.id = $rootScope.comp.id;
-    rating.rate = $scope.rate;
+    rating.rate = $scope.rating.rate;
+    rating.comment = comment;
     $ionicLoading.show({
       template: 'Loading...'
     });
@@ -105,7 +124,7 @@ angular.module('starter')
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: 'Erro!',
-        template: 'Cadastro falhou, verifique os dados ou se o email ja foi cadastrado'
+        template: 'Não foi possivel enviar sua avaliaçao'
       });
     });
   }

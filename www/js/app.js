@@ -1,6 +1,6 @@
 angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
   'ionMdInput','ionic-material','ion-datetime-picker',
-  'checklist-model', 'ionic-ratings', 'ngMap'])
+  'checklist-model', 'ionic.rating', 'ngMap'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
