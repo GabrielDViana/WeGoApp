@@ -5,6 +5,7 @@ angular.module('starter')
   serviceLogin, serviceLocation, serviceCompany, $cordovaGeolocation, $filter,
   factoryRating, factoryCompany, factoryFavorite) {
 
+  $rootScope.isOwner;
   $scope.today = new Date();
   $scope.filtered = $filter('date')($scope.today, 'EEEE');
 
@@ -41,6 +42,12 @@ angular.module('starter')
     }, function(company) {
       $ionicLoading.hide();
       $rootScope.comp = company;
+      if (company.user.auth_token === serviceLogin.getUser().auth_token){
+        $rootScope.isOwner = true;
+      }else {
+        $rootScope.isOwner = false;
+      }
+      console.log($rootScope.isOwner);
       console.log($rootScope.comp);
       $ionicLoading.hide();
     }, function(error) {
@@ -52,7 +59,6 @@ angular.module('starter')
     })
 
     $state.go('app.company');
-    console.log($rootScope.comp);
   };
 
   $scope.myTitle = 'IONIC RATINGS DEMO';
@@ -106,11 +112,11 @@ angular.module('starter')
 
   $scope.addToFavorites = function() {
     var favorite = {};
-    console.log(serviceLogin.getUser().auth_token, serviceCompany.getCompany().id,
-  $scope.rate);
 
     favorite.user_auth_token = serviceLogin.getUser().auth_token;
     favorite.company_token = $rootScope.comp.token;
+    favorite.id = $rootScope.comp.id;
+    console.log(favorite);
     $ionicLoading.show({
       template: 'Loading...'
     });

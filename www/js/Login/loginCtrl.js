@@ -127,7 +127,7 @@ angular.module('starter')
       );
       $ionicLoading.hide();
       $rootScope.user = serviceLogin.getUser();
-      console.log($rootScope.user);
+      console.log(user);
       $state.go('app.profile');
       $ionicLoading.hide();
       $rootScope.logged = true;

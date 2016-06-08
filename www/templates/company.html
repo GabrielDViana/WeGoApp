@@ -3,6 +3,8 @@
     <div class="list card">
 
   <div class="item item-body">
+    <div ng-if="!isOwner">
+
     <img class="full-image" ng-src="img/ionic.png">
     <div>
       <ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>
@@ -21,6 +23,7 @@
       <h3>{{comp.user.name}}</h3>
       <p>{{comp.user.email}}</p>
     </div>
+  </div>
     <p>
       {{comp.description}}
     </p>
