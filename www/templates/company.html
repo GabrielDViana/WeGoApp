@@ -3,31 +3,41 @@
     <div class="list card">
 
   <div class="item item-body">
+    <div data-tap-disabled="true" ng-controller="CompaniesCtrl as vm">
+      <ng-map zoom="15" center="[{{comp.latitude}},{{comp.longitude}}]"overflow-scroll="false">
+        <directions
+          draggable="true"
+          panel="directions-panel"
+          origin="current-location"
+          on-directions_changed="vm.directionsChanged(evt)"
+          destination="[{{comp.latitude}},{{comp.longitude}}]">
+        </directions>
+      </ng-map>
+    </div>
     <div ng-if="!isOwner">
-
-    <img class="full-image" ng-src="img/ionic.png">
-    <div>
-      <rating ng-model="rating.rate" max="rating.max"></rating>
-      <div class="button-bar">
-        <label class="item item-input">
-          <span class="input-label">Comentário</span>
-          <input type="text" ng-model="comment">
-        </label>
-        <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="submitRatig(comment)">
-          Enviar avaliação
-        </button>
+      <img class="full-image" ng-src="img/ionic.png">
+      <div>
+        <rating ng-model="rating.rate" max="rating.max"></rating>
+        <div class="button-bar">
+          <label class="item item-input">
+            <span class="input-label">Comentário</span>
+            <input type="text" ng-model="comment">
+          </label>
+          <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="submitRatig(comment)">
+            Enviar avaliação
+          </button>
+        </div>
+      </div>
+      <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="addToFavorites()">
+        Adicionar aos favoritos
+      </button>
+      <div class="item item-avatar" ng-controller="UsersCtrl" ng-click="viewUser(comp.user.token)" >
+        <img ng-src="img/ionic.png">
+        <h2>Usuário Responsavel</h2>
+        <h3>{{comp.user.name}}</h3>
+        <p>{{comp.user.email}}</p>
       </div>
     </div>
-    <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="addToFavorites()">
-      Adicionar aos favoritos
-    </button>
-    <div class="item item-avatar" ng-controller="UsersCtrl" ng-click="viewUser(comp.user.token)" >
-      <img ng-src="img/ionic.png">
-      <h2>Usuário Responsavel</h2>
-      <h3>{{comp.user.name}}</h3>
-      <p>{{comp.user.email}}</p>
-    </div>
-  </div>
     <h2>Descrição</h2>
     <p>
       {{comp.description}}
