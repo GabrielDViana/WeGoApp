@@ -13,6 +13,11 @@
         </button>
       </div>
       <div class="button-bar" ng-controller="CompaniesCtrl">
+        <button ui-sref="app.favorites"class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="favorites(user.auth_token)">
+          Favoritos
+        </button>
+      </div>
+      <div class="button-bar" ng-controller="CompaniesCtrl">
         <button ui-sref="app.companies"class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="allCompanies()">
           Serviços disponiveis
         </button>

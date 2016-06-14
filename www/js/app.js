@@ -131,6 +131,24 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
           }
         }
       })
+      .state('app.search', {
+        url: '/user',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/search.html',
+            controller: 'UsersCtrl'
+          }
+        }
+      })
+      .state('app.favorites', {
+        url: '/favorites',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/favorites.html',
+            controller: 'CompaniesCtrl'
+          }
+        }
+      })
       ;
   $urlRouterProvider.otherwise("app/home");
 })

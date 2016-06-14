@@ -123,7 +123,8 @@ angular.module('starter')
         user.email,
         user.auth_token,
         user.birthday,
-        user.gender
+        user.gender,
+        user.id
       );
       $ionicLoading.hide();
       $rootScope.user = serviceLogin.getUser();

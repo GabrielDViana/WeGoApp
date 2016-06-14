@@ -3,7 +3,7 @@ angular.module('starter')
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
   serviceLogin, serviceLocation, serviceCompany, NgMap, $filter,
-  factoryRating, factoryCompany, factoryFavorite, ratingConfig) {
+  factoryRating, factoryCompany, factoryFavorites, ratingConfig) {
 
   $rootScope.isOwner;
   var today = new Date();
@@ -38,21 +38,48 @@ angular.module('starter')
       });
     })
   }
-  $scope.isOperating =function(id)  {
+  $scope.favorites = function(auth_token) {
+    factoryFavorites.get({
+      auth_token: auth_token
+    }, function(company) {
+      $ionicLoading.hide();
+      $rootScope.companys = company;
+      console.log($rootScope.companys);
+    }, function(error) {
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Erro!',
+        template: 'Falhou'
+      });
+    })
+  };
 
-      var sizedays = $rootScope.companys[id].days.length;
-      var open = $filter('date')( $rootScope.companys[id].time_opens, 'HH:MM');
-      var close = $filter('date')( $rootScope.companys[id].time_closes, 'HH:MM');
-      console.log(open, close);
-      for (var j = 0; j < sizedays; j++) {
-        if ($scope.filtered === $rootScope.companys[id].days[j] && timeNow >= open && timeNow < close) {
-          console.log('disponivel',$rootScope.companys[id].days[j],id);
-          var x = document.getElementsByClassName('available');
-          x[id].innerHTML = "Disponivel";
-          x[id].style.backgroundColor = "#33cd5f";
-        }
+  $scope.isOperating = function(id)  {
+    var sizedays = $rootScope.companys[id].days.length;
+    var open = $filter('date')( $rootScope.companys[id].time_opens, 'HH:MM');
+    var close = $filter('date')( $rootScope.companys[id].time_closes, 'HH:MM');
+    console.log(open, close);
+    for (var j = 0; j < sizedays; j++) {
+      if ($scope.filtered === $rootScope.companys[id].days[j] && timeNow >= open && timeNow < close) {
+        console.log('disponivel',$rootScope.companys[id].days[j],id);
+        var x = document.getElementsByClassName('available');
+        x[id].innerHTML = "Disponivel";
+        x[id].style.backgroundColor = "#33cd5f";
       }
+    }
+  }
 
+  $scope.isItRated = function(favorites) {
+    console.log("favoritos",favorites);
+    var id = serviceLogin.getUser().id;
+    console.log("id",id);
+    for (var i = 0; i < favorites.length; i++) {
+      if (id === favorites[i].user_id){
+        console.log('avaliada',favorites[i]);
+        $rootScope.isRated = true;
+      }
+    }
+    console.log($rootScope.isRated);
   }
 
   var vm = this;
@@ -195,13 +222,14 @@ angular.module('starter')
   });
 
   $scope.viewCompany = function(token) {
+    $rootScope.isRated = false;
     factoryCompany.get({
       token: token
     }, function(company) {
       $ionicLoading.hide();
       console.log(company);
       $rootScope.comp = company;
-
+      $scope.isItRated(company.favorites);
 
       if (company.user.auth_token === serviceLogin.getUser().auth_token){
         $rootScope.isOwner = true;

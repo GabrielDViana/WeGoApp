@@ -16,7 +16,7 @@
     </div>
     <div ng-if="!isOwner">
       <img class="full-image" ng-src="img/ionic.png">
-      <div>
+      <div ng-if="!isRated">
         <rating ng-model="rating.rate" max="rating.max"></rating>
         <div class="button-bar">
           <label class="item item-input">
