@@ -2,7 +2,7 @@ angular.module('starter')
 
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
-  serviceLogin, serviceLocation, serviceCompany, NgMap, $filter,
+  serviceLogin, serviceLocation, serviceCompany, NgMap, $filter, factoryFavorite,
   factoryRating, factoryCompany, factoryFavorites, ratingConfig) {
 
   $rootScope.isOwner;
@@ -62,20 +62,24 @@ angular.module('starter')
     for (var j = 0; j < sizedays; j++) {
       if ($scope.filtered === $rootScope.companys[id].days[j] && timeNow >= open && timeNow < close) {
         console.log('disponivel',$rootScope.companys[id].days[j],id);
-        var x = document.getElementsByClassName('available');
-        x[id].innerHTML = "Disponivel";
-        x[id].style.backgroundColor = "#33cd5f";
+        var x = document.getElementsByClassName('close-ribbon');
+        // x[id].innerHTML = "Disponivel";
+        x[id].style.color = "#33cd5f";
+      }else if ($scope.filtered === $rootScope.companys[id].days[j]){
+        var x = document.getElementsByClassName('close-ribbon');
+        // x[id].innerHTML = "Indisponível";
+        x[id].style.color = "#ef473a";
       }
     }
   }
 
-  $scope.isItRated = function(favorites) {
-    console.log("favoritos",favorites);
+  $scope.isItRated = function(ratings) {
+    console.log("rate",ratings);
     var id = serviceLogin.getUser().id;
     console.log("id",id);
-    for (var i = 0; i < favorites.length; i++) {
-      if (id === favorites[i].user_id){
-        console.log('avaliada',favorites[i]);
+    for (var i = 0; i < ratings.length; i++) {
+      if (id === ratings[i].user_id){
+        console.log('avaliada',ratings[i]);
         $rootScope.isRated = true;
       }
     }
@@ -229,7 +233,7 @@ angular.module('starter')
       $ionicLoading.hide();
       console.log(company);
       $rootScope.comp = company;
-      $scope.isItRated(company.favorites);
+      $scope.isItRated(company.ratings);
 
       if (company.user.auth_token === serviceLogin.getUser().auth_token){
         $rootScope.isOwner = true;

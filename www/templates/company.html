@@ -17,11 +17,11 @@
     <div ng-if="!isOwner">
       <img class="full-image" ng-src="img/ionic.png">
       <div ng-if="!isRated">
+        <h1>Avaliar</h1>
         <rating ng-model="rating.rate" max="rating.max"></rating>
         <div class="button-bar">
           <label class="item item-input">
-            <span class="input-label">Comentário</span>
-            <input type="text" ng-model="comment">
+            <textarea placeholder="Commentário"ng-model="comment"></textarea>
           </label>
           <button class="button button-small button-positive light-bg waves-effect waves-button waves-light" ng-click="submitRatig(comment)">
             Enviar avaliação

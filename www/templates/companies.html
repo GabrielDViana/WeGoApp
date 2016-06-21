@@ -1,15 +1,20 @@
 <ion-view view-title="Empresas e Serviços">
   <ion-content ng-class="{expanded:$scope.isExpanded}">
+    <div class="companies"></div>
     <ion-list ng-repeat="company in companys track by $index">
-      <a class="item item-thumbnail-left" ng-init="isOperating($index)"ng-click="viewCompany(company.token)">
-        <img ng-if="!fblogged" ng-src="img/ionic.png">
-        <h2>{{company.name}}</h2>
-        <p>{{company.description}}</p>
-        <p>{{company.adress}}</p>
-        <p id="availability">
-          <span class="available">Indisponivel</span>
-        </p>
-      </a>
+      <div class="companies" ng-init="isOperating($index)"ng-click="viewCompany(company.token)">
+        <a >
+            <a class="close-ribbon"></a>
+          <div class="item item-body company-navigation" style="background-image: url('../img/develop.jpg')">
+            <h2>{{company.name}}</h2>
+            <p>{{company.description}}</p>
+            <p>{{company.adress}}</p>
+            <!-- <p id="availability">
+              <span class="available">Indisponivel</span>
+            </p> -->
+          </div>
+        </a>
+      </div>
     </ion-list>
   </ion-content>
 </ion-view>

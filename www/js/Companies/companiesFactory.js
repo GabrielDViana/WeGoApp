@@ -23,6 +23,10 @@ angular.module('starter')
   return $resource("http://localhost:3000/company/rate")
 })
 
+.factory('factoryFavorite', function($resource) {
+  return $resource("http://localhost:3000/company/favorite")
+})
+
 .factory('factoryFavorites', function($resource) {
   return $resource("http://localhost:3000/company/favorites/", {}, {
       'get': { method:'GET',
