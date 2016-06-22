@@ -1,17 +1,24 @@
 <ion-view view-title="Empresas e Serviços">
+  <div class="bar bar-header background">
+    <h1 class="title"><img class="img-header"src="img/logo_horizontal.png" alt=""></h1>
+  </div>
   <ion-content ng-class="{expanded:$scope.isExpanded}">
     <div class="companies"></div>
     <ion-list ng-repeat="company in companys track by $index">
-      <div class="companies" ng-init="isOperating($index)"ng-click="viewCompany(company.token)">
-        <a >
+      <div scroll="false" class="companies" ng-init="isOperating($index)">
+        <a scroll="false">
+          <a class="ribbon"><p>{{company.average_rating}}</p></a>
             <a class="close-ribbon"></a>
-          <div class="item item-body company-navigation" style="background-image: url('../img/develop.jpg')">
+          <div class="company-navigation" style="background-image: url('../img/develop.jpg')">
             <h2>{{company.name}}</h2>
-            <p>{{company.description}}</p>
-            <p>{{company.adress}}</p>
-            <!-- <p id="availability">
-              <span class="available">Indisponivel</span>
-            </p> -->
+            <div class="row companies-icons">
+              <div class="col col-75"></div>
+              <div class="col">
+                <i class="icon ion-android-favorite-outline" ng-click="addToFavorites(company)"></i>
+                <i class="icon ion-android-star-outline" ></i>
+                <i class="icon ion-ios-location-outline" ng-click="viewCompany(company.token)"></i>
+              </div>
+            </div>
           </div>
         </a>
       </div>

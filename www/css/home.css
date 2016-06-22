@@ -16,9 +16,18 @@
 .company-navigation span{
   color: #fff;
 }
+.company-navigation h2{
+  font-size: 1em;
+}
 .img-header{
   margin-top: -10px;
   height: 60px;
+}
+.companies-icons{
+  position: absolute;
+  bottom: 0.75em;
+  color: #fff;
+  font-size: 1.5em;
 }
 
 .close-ribbon{
@@ -53,11 +62,53 @@
   font-size: 0.5em;
   position: absolute;
   border-style: solid;
-  border-color: transparent transparent #B71C1C transparent;
+  border-color: transparent transparent #606060 transparent;
+  top: -0.3em;
+  right: 2em;
+  border-width: 0 0 0.4em 0.25em;
+  z-index: -199999999;
+}
+.ribbon{
+  position: absolute;
+  top: 0;
+  right: 2.5em;
+  z-index: 20;
+  color: #fff;
+  font-size: 2em;
+  cursor: pointer;
+  width: 0.7em;
+  line-height: 0.6em;
+  -webkit-transition: line-height 0.5s;
+  transition: line-height 0.5s;
+}
+.ribbon:after {
+  content: "";
+  font-size: 0.5em;
+  position: absolute;
+  height: 1.2em;
+  border: 1em solid #33cd5f;
+  z-index: -19999999;
+  top: -0.3em;
+  border-top-width: 2em;
+  border-bottom-color: transparent;
+  right: 0;
+  -webkit-transition: height 0.5s;
+  transition: height 0.5s;
+}
+.ribbon:before {
+  content: "";
+  font-size: 0.5em;
+  position: absolute;
+  border-style: solid;
+  border-color: transparent transparent #606060 transparent;
   top: -0.3em;
   right: 2em;
   border-width: 0 0 0.4em 0.3em;
   z-index: -199999999;
+}
+.ribbon p,
+.close-ribbon p{
+  font-size: 0.6em;
 }
 /*.close-ribbon:hover:after{
   border: 1.5em solid #EF5350;

@@ -288,12 +288,12 @@ angular.module('starter')
     });
   }
 
-  $scope.addToFavorites = function() {
+  $scope.addToFavorites = function(company) {
     var favorite = {};
 
     favorite.user_auth_token = serviceLogin.getUser().auth_token;
-    favorite.company_token = $rootScope.comp.token;
-    favorite.id = $rootScope.comp.id;
+    favorite.company_token = company.token;
+    favorite.id = company.id;
     console.log(favorite);
     $ionicLoading.show({
       template: 'Loading...'
