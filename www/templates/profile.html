@@ -2,7 +2,7 @@
   <div class="bar bar-header background">
     <h1 class="title"><img class="img-header"src="img/logo_horizontal.png" alt=""></h1>
   </div>
-  <ion-content ng-class="{expanded:$scope.isExpanded}">
+  <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="false">
     <div class="profile-info text-center">
       <img class="profile-image" ng-if="fblogged" ng-src="https://graph.facebook.com/{{ user.idFacebook }}/picture?width=700&height=700">
       <img class="profile-image" ng-if="!fblogged" ng-src="img/ionic.png">

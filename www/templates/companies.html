@@ -2,7 +2,7 @@
   <div class="bar bar-header background">
     <h1 class="title"><img class="img-header"src="img/logo_horizontal.png" alt=""></h1>
   </div>
-  <ion-content ng-class="{expanded:$scope.isExpanded}">
+  <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="false">
     <div class="companies"></div>
     <ion-list ng-repeat="company in companys track by $index">
       <div scroll="false" class="companies" ng-init="isOperating($index)">

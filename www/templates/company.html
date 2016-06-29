@@ -1,10 +1,10 @@
+<div class="bar bar-header background">
+  <h1 class="title"><img class="img-header"src="img/logo_horizontal.png" alt=""></h1>
+</div>
 <ion-view view-title="Perfil">
   <ion-content ng-class="{expanded:$scope.isExpanded}">
-    <div class="list card">
-
-  <div class="item item-body">
     <div data-tap-disabled="true" ng-controller="CompaniesCtrl as vm">
-      <ng-map zoom="15" center="[{{comp.latitude}},{{comp.longitude}}]"overflow-scroll="false">
+      <ng-map class="map" zoom="15" center="[{{comp.latitude}},{{comp.longitude}}]"overflow-scroll="false">
         <directions
           draggable="true"
           panel="directions-panel"
@@ -38,28 +38,31 @@
         <p>{{comp.user.email}}</p>
       </div>
     </div>
-    <h2>Descrição</h2>
-    <p>
-      {{comp.description}}
-    </p>
+    <div class="description">
+      <h2>{{comp.name}}</h2>
+      <p>
+        {{comp.description}}
+      </p>
+    </div>
+    <div class="time">
+      <h3>Horario de abertura</h3>
+      <p>
+        {{comp.time_opens | date:'H:mm'}}
+      </p>
+      <h3>Horario de encerramento</h3>
+      <p>
+        {{comp.time_closes | date:'H:mm'}}
+      </p>
+    </div>
     <h2>Dias de operação</h2>
     <p ng-repeat="day in comp.days">
       {{day}}
-    </p>
-    <h2>Horario de abertura</h2>
-    <p>
-      {{comp.time_opens | date:'H:mm'}}
-    </p>
-    <h2>Horario de encerramento</h2>
-    <p>
-      {{comp.time_closes | date:'H:mm'}}
     </p>
     <h2>Media de avaliações </h2>
     <rating readonly="readOnly" ng-model="comp.average_rating"></rating>
     <p>
       <a class="subdued">{{comp.people_rated}} avaliações</a>
     </p>
-  </div>
-</div>
+
   </ion-content>
 </ion-view>
