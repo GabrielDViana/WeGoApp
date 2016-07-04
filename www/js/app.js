@@ -136,7 +136,7 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
         views: {
           'menuContent': {
             templateUrl: 'templates/search.html',
-            controller: 'UsersCtrl'
+            controller: 'CompaniesCtrl'
           }
         }
       })

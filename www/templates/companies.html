@@ -1,10 +1,15 @@
 <ion-view view-title="Empresas e Serviços">
-  <div class="bar bar-header background">
-    <h1 class="title"><img class="img-header"src="img/logo_horizontal.png" alt=""></h1>
+  <div ng-init="toggleHeader()" class="bar bar-header background">
+    <h1 class="title toggle-header">
+    </h1>
+    <button class="button icon ion-search" ng-click ="toggle()"></button>
   </div>
   <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="false">
     <div class="companies"></div>
-    <ion-list ng-repeat="company in companys track by $index">
+    <label>Palavra chave: <input ng-model="search.$"></label>
+    <label>Nome <input ng-model="search.name"></label>
+    <label>Descrição <input ng-model="search.description"></label>
+    <ion-list ng-repeat="company in companys | filter:search">
       <div scroll="false" class="companies" ng-init="isOperating($index)">
         <a scroll="false">
           <a class="ribbon"><p>{{company.average_rating}}</p></a>

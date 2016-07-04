@@ -3,7 +3,8 @@ angular.module('starter')
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
   serviceLogin, serviceLocation, serviceCompany, NgMap, $filter, factoryFavorite,
-  factoryRating, factoryCompany, factoryFavorites, ratingConfig) {
+  factoryRating, factoryCompany, factoryFavorites, ratingConfig, $sce) {
+
 
   $rootScope.isOwner;
   var today = new Date();
@@ -312,6 +313,27 @@ angular.module('starter')
         template: 'Não foi possivel adicionar aos favoritos!'
       });
     });
+  }
+  $scope.isSearching = false;
+  $scope.toggle = function () {
+    if ($scope.isSearching === false) {
+      $scope.isSearching = true;
+    }else {
+      $scope.isSearching = false;
+    }
+    console.log($scope.isSearching);
+    $scope.toggleHeader();
+  }
+  $scope.toggleHeader= function(){
+    var x = document.getElementsByClassName('toggle-header');
+    if ($scope.isSearching === false) {
+      $scope.conteudo = '<img class="img-header"src="img/logo_horizontal.png" alt="">';
+    }else {
+      $scope.conteudo = '<input ng-model="search.$" class="ng-pristine ng-valid ng-empty ng-touched">';
+      var text = $sce.trustAsHtml($scope.conteudo);
+      console.log(text);
+      $scope.conteudo = text;
+    }
   }
 
 })

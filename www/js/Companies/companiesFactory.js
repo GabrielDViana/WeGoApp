@@ -29,14 +29,11 @@ angular.module('starter')
 
 .factory('factoryFavorites', function($resource) {
   return $resource("http://localhost:3000/company/favorites/", {}, {
-      'get': { method:'GET',
+      'get': {
+                  method:'GET',
                   params:{  auth_token:'@auth_token' },
                   isArray:true
       }
 
   })
-})
-
-.factory('factorySearch', function($resource) {
-  return $resource("http://localhost:3000/company/search")
 })
