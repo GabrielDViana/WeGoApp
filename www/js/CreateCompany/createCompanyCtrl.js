@@ -3,7 +3,39 @@ angular.module('starter')
 .controller('createCompanyCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, $ionicPickerI18n,
   serviceCreateCompany, factoryCreateCompany, $cordovaCamera, $cordovaImagePicker,
-  serviceLogin, NgMap, serviceLocation, $filter) {
+  serviceLogin, NgMap, serviceLocation, $filter, $compile) {
+    $scope.initialize = function() {
+      var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
+
+      var mapOptions = {
+        center: myLatlng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("map"),
+          mapOptions);
+
+      //Marker + infowindow + angularjs compiled ng-click
+      var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+      var compiled = $compile(contentString)($scope);
+
+      var infowindow = new google.maps.InfoWindow({
+        content: compiled[0]
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: 'Uluru (Ayers Rock)'
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+      });
+
+      $scope.map = map;
+    }
+    google.maps.event.addDomListener(window, 'load', $scope.initialize);
 
 
   $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAPfi0mlLEsRQf96-64bONF7DoLxYtLwRY";
@@ -32,27 +64,21 @@ angular.module('starter')
        };
 
        $cordovaImagePicker.getPictures(options)
-           .then(function (results) {
+         .then(function (results) {
              for (var i = 0; i < results.length; i++) {
+                 console.log('Image URI: ' + results[i]);
+                 $scope.imageUri = results[i];
 
-               console.log('Image URI: ' + results[i]);
-               $scope.imageUri = results[i];
-               // Encode URI to Base64
-               window.plugins.Base64.encodeFile($scope.imageUri, function(base64){
-                  // Save images in Base64
-                  $scope.images.push(base64);
-               });
-               $ionicPopup.alert({
-                 title: 'Sucesso!',
-                 template: '{{$scope.images}}'
-               });
+                // Encode URI to Base64
+                window.plugins.Base64.encodeFile($scope.imageUri, function(base64){
+                   // Save images in Base64
+                   $scope.images.push(base64);
+                });
              }
-             if(!$scope.$$phase) {
-               $scope.$apply();
-             }
-           }, function(error) {
+
+         }, function(error) {
              // error getting photos
-           });
+         });
 
      };
 
@@ -133,6 +159,7 @@ angular.module('starter')
     company.time_closes = $filter('date')(company.time_closes, 'HH:mm');
     company.latitude = $scope.marker.position.lat();
     company.longitude =$scope.marker.position.lng();
+    company.company_images = $scope.images
     $ionicLoading.show({
       template: 'Loading...'
     });

@@ -20,7 +20,7 @@ angular.module('starter')
         console.log("Login Failed!", error);
       } else {
 
-        $state.go('app.createcompany');
+        $state.go('app.profile');
         console.log("Data from Firebase:", authData);
         serviceLogin.setUser(
           authData.facebook.displayName,
@@ -35,14 +35,14 @@ angular.module('starter')
           authData.facebook.id,
           authData.facebook.cachedUserProfile.gender,
           new Date(authData.facebook.cachedUserProfile.birthday)
-        )
+        );
+        console.log("Usr:", serviceRegisterSocial.getUser());
         factoryRegister.save(serviceRegisterSocial.getUser(), function(user) {
           $ionicLoading.hide();
           $ionicPopup.alert({
             title: 'Ops!',
             template: 'Primeiro acesso. Seu cadastro será efetuado em nosso banco!'
           });
-          $state.go('app.createcompany');
           console.log(user);
         }, function(error) {
           $ionicLoading.hide();
@@ -84,7 +84,7 @@ angular.module('starter')
           });
           $rootScope.user = serviceLogin.getUser();
           console.log($rootScope.user);
-          $state.go('app.createcompany');
+          $state.go('app.profile');
           $ionicLoading.hide();
           $rootScope.logged = true;
         }, function(error) {
