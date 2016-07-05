@@ -56,8 +56,12 @@
     <!-- Div para login com rede social  -->
 <div>
   <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="selImages()"> Câmera</button>
-  <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="getFoto(Camera.PictureSourceType.PHOTOLIBRARY)"> multi</button>
+  <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="logi()"> multi</button>
+
+  <img data-ng-src="data:image/png;base64,{{imag}}"/>
+
 </div>
+
 </ion-content>
 
 </ion-view>

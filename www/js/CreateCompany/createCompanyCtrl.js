@@ -23,14 +23,14 @@ angular.module('starter')
         content: compiled[0]
       });
 
-      var marker = new google.maps.Marker({
+      $scope.marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
         title: 'Uluru (Ayers Rock)'
       });
 
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,marker);
+      google.maps.event.addListener($scope.marker, 'click', function() {
+        infowindow.open(map,$scope.marker);
       });
 
       $scope.map = map;
@@ -40,21 +40,21 @@ angular.module('starter')
 
   $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAPfi0mlLEsRQf96-64bONF7DoLxYtLwRY";
 
-  $scope.marker;
-  var vm = this;
-  NgMap.getMap().then(function(map) {
-    vm.map = map;
-    $scope.marker = map.markers[0];
-    console.log('latitude',$scope.marker.position.lat());
-    console.log('longitude',$scope.marker.position.lng());
-  });
-  vm.click = function(event) {
-    vm.map.setCenter($scope.marker.getPosition());
-    console.log('latitude',$scope.marker.position.lat());
-    console.log('longitude',$scope.marker.position.lng());
-    console.log($scope.marker);
-  };
-
+  // $scope.marker;
+  // var vm = this;
+  // NgMap.getMap().then(function(map) {
+  //   vm.map = map;
+  //   $scope.marker = map.markers[0];
+  //   console.log('latitude',$scope.marker.position.lat());
+  //   console.log('longitude',$scope.marker.position.lng());
+  // });
+  // vm.click = function(event) {
+  //   vm.map.setCenter($scope.marker.getPosition());
+  //   console.log('latitude',$scope.marker.position.lat());
+  //   console.log('longitude',$scope.marker.position.lng());
+  //   console.log($scope.marker);
+  // };
+    $scope.images=[];
     $scope.selImages = function() {
        var options = {
          maximumImagesCount: 10,
@@ -66,25 +66,31 @@ angular.module('starter')
        $cordovaImagePicker.getPictures(options)
          .then(function (results) {
              for (var i = 0; i < results.length; i++) {
-                 console.log('Image URI: ' + results[i]);
-                 $scope.imageUri = results[i];
+                //  console.log('Image URI: ' + results[i]);
+                 $scope.imagens = results[i];
 
                 // Encode URI to Base64
-                window.plugins.Base64.encodeFile($scope.imageUri, function(base64){
+                window.plugins.Base64.encodeFile(results[i], function(base64){
                    // Save images in Base64
-                   $scope.images.push(base64);
+                   $scope.images[i]=base64;
+                   $scope.imag = $scope.images[0];
                 });
+
+             }
+             if(!$scope.$$phase) {
+               $scope.$apply();
              }
 
          }, function(error) {
              // error getting photos
          });
+         console.log("Base64:\n\n\n",$scope.images);
 
      };
+     $scope.logi = function () {
+       alert($scope.images);
+     }
 
-     $scope.removeImage = function(image) {
-       $scope.images = _.without($scope.images, image);
-     };
 
   $scope.today = new Date();
   $scope.filtered = $filter('date')($scope.today, 'EEEE');
@@ -153,13 +159,12 @@ angular.module('starter')
     return bb;
   }
 
-
   $scope.createCompany = function(company) {
     company.time_opens = $filter('date')(company.time_opens, 'HH:mm');
     company.time_closes = $filter('date')(company.time_closes, 'HH:mm');
     company.latitude = $scope.marker.position.lat();
     company.longitude =$scope.marker.position.lng();
-    company.company_images = $scope.images
+    company.company_images = $scope.images;
     $ionicLoading.show({
       template: 'Loading...'
     });
