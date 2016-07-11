@@ -17,7 +17,7 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
   <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+    <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
@@ -39,4 +39,6 @@
     <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
   </platform>
+  <plugin name="cordova-plugin-ignore-lint-translation" spec="~0.0.1"/>
+  <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
 </widget>

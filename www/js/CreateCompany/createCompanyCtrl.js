@@ -40,53 +40,38 @@ angular.module('starter')
 
   $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAPfi0mlLEsRQf96-64bONF7DoLxYtLwRY";
 
-  // $scope.marker;
-  // var vm = this;
-  // NgMap.getMap().then(function(map) {
-  //   vm.map = map;
-  //   $scope.marker = map.markers[0];
-  //   console.log('latitude',$scope.marker.position.lat());
-  //   console.log('longitude',$scope.marker.position.lng());
-  // });
-  // vm.click = function(event) {
-  //   vm.map.setCenter($scope.marker.getPosition());
-  //   console.log('latitude',$scope.marker.position.lat());
-  //   console.log('longitude',$scope.marker.position.lng());
-  //   console.log($scope.marker);
-  // };
+  $scope.marker;
+  var vm = this;
+  NgMap.getMap().then(function(map) {
+    vm.map = map;
+    $scope.marker = map.markers[0];
+    console.log('latitude',$scope.marker.position.lat());
+    console.log('longitude',$scope.marker.position.lng());
+  });
+  vm.click = function(event) {
+    vm.map.setCenter($scope.marker.getPosition());
+    console.log('latitude',$scope.marker.position.lat());
+    console.log('longitude',$scope.marker.position.lng());
+    console.log($scope.marker);
+  };
     $scope.images=[];
     $scope.selImages = function() {
-       var options = {
-         maximumImagesCount: 10,
-         width: 800,
-         height: 800,
-         quality: 80
-       };
 
-       $cordovaImagePicker.getPictures(options)
-         .then(function (results) {
-             for (var i = 0; i < results.length; i++) {
-                //  console.log('Image URI: ' + results[i]);
-                 $scope.imagens = results[i];
+		window.imagePicker.getPictures(
+			function(results) {
+				for (var i = 0; i < results.length; i++) {
+					console.log('Image URI: ' + results[i]);
+					$scope.images.push(results[i]);
+				}
+				if(!$scope.$$phase) {
+					$scope.$apply();
+				}
+			}, function (error) {
+				console.log('Error: ' + error);
+			}
+		);
 
-                // Encode URI to Base64
-                window.plugins.Base64.encodeFile(results[i], function(base64){
-                   // Save images in Base64
-                   $scope.images[i]=base64;
-                   $scope.imag = $scope.images[0];
-                });
-
-             }
-             if(!$scope.$$phase) {
-               $scope.$apply();
-             }
-
-         }, function(error) {
-             // error getting photos
-         });
-         console.log("Base64:\n\n\n",$scope.images);
-
-     };
+	};
      $scope.logi = function () {
        alert($scope.images);
      }

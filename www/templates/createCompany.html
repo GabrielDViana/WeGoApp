@@ -1,7 +1,8 @@
 <ion-view class="background">
   <ion-content>
-    <div data-tap-disabled="true"  ng-controller="createCompanyCtrl" ng-init="initialize()">
-      <ng-map zoom="15" id="map" data-tap-disabled="true" overflow-scroll="false">
+    <div data-tap-disabled="true"  ng-controller="createCompanyCtrl as vm">
+      <ng-map zoom="15" center="current-location"overflow-scroll="false">
+        <marker position="current-location" streetViewControl="false" title="drag me" draggable="true" on-dragend="vm.click()"></marker>
       </ng-map>
     </div>
     <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
@@ -14,7 +15,7 @@
     <div>
       <span style="color:white;" class="labels">Descrição:</span>
       <label class="item item-input inputs-register">
-        <input type="text" ng-model='company.description' >
+        <textarea ng-model='company.description' rows="8" cols="40"></textarea>
       </label>
     </div>
     <div>
@@ -58,8 +59,9 @@
   <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="selImages()"> Câmera</button>
   <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="logi()"> multi</button>
 
-  <img data-ng-src="data:image/png;base64,{{imag}}"/>
-
+  <p ng-repeat="img in images">
+  	<img ng-src="{{img}}" style="max-width:250px;max-height:250px" />
+  </p>
 </div>
 
 </ion-content>

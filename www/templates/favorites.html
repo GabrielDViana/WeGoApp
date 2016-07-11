@@ -1,15 +1,32 @@
 <ion-view view-title="Empresas e Serviços">
-  <ion-content ng-class="{expanded:$scope.isExpanded}">
-    <ion-list ng-repeat="company in companys track by $index">
-      <a class="item item-thumbnail-left" ng-init="isOperating($index)"ng-click="viewCompany(company.token)">
-        <img ng-if="!fblogged" ng-src="img/ionic.png">
-        <h2>{{company.name}}</h2>
-        <p>{{company.description}}</p>
-        <p>{{company.adress}}</p>
-        <p id="availability">
-          <span class="available">Indisponivel</span>
-        </p>
-      </a>
+  <div ng-init="toggleHeader()" class="bar bar-header background">
+    <h1 class="title toggle-header">
+    </h1>
+    <button class="button icon ion-search" ng-click ="toggle()"></button>
+  </div>
+  <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="false">
+    <div class="companies"></div>
+    <label>Palavra chave: <input ng-model="search.$"></label>
+    <label>Nome <input ng-model="search.name"></label>
+    <label>Descrição <input ng-model="search.description"></label>
+    <ion-list ng-repeat="company in companys | filter:search">
+      <div scroll="false" class="companies" ng-init="isOperating($index)">
+        <a scroll="false">
+          <a class="ribbon"><p>{{company.average_rating}}</p></a>
+            <a class="close-ribbon"></a>
+          <div class="company-navigation" style="background-image: url('../img/develop.jpg')">
+            <h2>{{company.name}}</h2>
+            <div class="row companies-icons">
+              <div class="col col-75"></div>
+              <div class="col">
+                <i class="icon ion-android-favorite-outline" ng-click="addToFavorites(company)"></i>
+                <i class="icon ion-android-star-outline" ></i>
+                <i class="icon ion-ios-location-outline" ng-click="viewCompany(company.token)"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
     </ion-list>
   </ion-content>
 </ion-view>
