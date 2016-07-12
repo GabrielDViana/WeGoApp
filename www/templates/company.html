@@ -14,7 +14,11 @@
         </directions>
       </ng-map>
     </div>
-    <img ng-src="{{comp.company_images[0]}}" style="max-width:250px;max-height:250px" />
+    <ion-slide-box show-pager="true">
+      <ion-slide ng-repeat="img in comp.company_images">
+        <img class="company-carousel" ng-src="{{img}}"/>
+      </ion-slide>
+    </ion-slide-box>
     <div ng-if="!isOwner">
       <div ng-if="!isRated">
         <h1>Avaliar</h1>

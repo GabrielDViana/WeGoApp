@@ -3,8 +3,27 @@ angular.module('starter')
 .controller('CompaniesCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, factoryCompanies,
   serviceLogin, serviceLocation, serviceCompany, NgMap, $filter, factoryFavorite,
-  factoryRating, factoryCompany, factoryFavorites, ratingConfig, $sce) {
+  factoryRating, factoryCompany, factoryFavorites, ratingConfig, $sce,
+  $ionicSlideBoxDelegate,$interval) {
 
+  var maxSlides = 10;
+  var slideCounter = 2;
+
+  $scope.data = {};
+  $scope.data.slides = [];
+
+  $ionicSlideBoxDelegate.update();
+
+  var intervalId = $interval( function() {
+    if( slideCounter < maxSlides) {
+      slideCounter++;
+
+      $ionicSlideBoxDelegate.update();
+    } else {
+      console.log('All full!');
+      $interval.cancel(intervalId);
+    }
+  }, 3000);
 
   $rootScope.isOwner;
   var today = new Date();
