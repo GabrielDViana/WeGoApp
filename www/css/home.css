@@ -7,9 +7,15 @@
 .companies{
   margin-bottom: 1em;
 }
+.companies img{
+  width:100%;
+  max-height:250px;
+  /*z-index:-9;*/
+}
 .company-navigation{
   background-size: 100%;
-  height: 200px;
+  height: 250px;
+  z-index: 1;
 }
 .company-navigation h2,
 .company-navigation p,
@@ -25,9 +31,9 @@
 }
 .companies-icons{
   position: absolute;
-  bottom: 0.75em;
+  bottom: 0.25em;
   color: #fff;
-  font-size: 1.5em;
+  font-size: 2em;
 }
 
 .close-ribbon{
@@ -124,7 +130,7 @@
   transition: line-height 0.5s;
 }*/
 .logo{
-  margin-top: 80px;
+  margin-top: 2em;
   position: relative;
 }
 

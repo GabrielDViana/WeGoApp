@@ -10,11 +10,12 @@
     <label>Nome <input ng-model="search.name"></label>
     <label>Descrição <input ng-model="search.description"></label>
     <ion-list ng-repeat="company in companys | filter:search">
+      <div class="company-navigation">
       <div scroll="false" class="companies" ng-init="isOperating($index)">
         <a scroll="false">
           <a class="ribbon"><p>{{company.average_rating}}</p></a>
             <a class="close-ribbon"></a>
-          <div class="company-navigation" style="background-image: url('../img/develop.jpg')">
+            <img ng-src="{{company.company_images[0]}}" />
             <h2>{{company.name}}</h2>
             <div class="row companies-icons">
               <div class="col col-75"></div>

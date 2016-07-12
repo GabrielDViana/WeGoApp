@@ -14,8 +14,8 @@
         </directions>
       </ng-map>
     </div>
+    <img ng-src="{{comp.company_images[0]}}" style="max-width:250px;max-height:250px" />
     <div ng-if="!isOwner">
-      <img class="full-image" ng-src="img/ionic.png">
       <div ng-if="!isRated">
         <h1>Avaliar</h1>
         <rating ng-model="rating.rate" max="rating.max"></rating>

@@ -54,24 +54,39 @@ angular.module('starter')
     console.log('longitude',$scope.marker.position.lng());
     console.log($scope.marker);
   };
-    $scope.images=[];
+    $scope.images = [];
+    $scope.imagens = [];
     $scope.selImages = function() {
+       var options = {
+         maximumImagesCount: 10,
+         width: 800,
+         height: 800,
+         quality: 80
+       };
 
-		window.imagePicker.getPictures(
-			function(results) {
-				for (var i = 0; i < results.length; i++) {
-					console.log('Image URI: ' + results[i]);
-					$scope.images.push(results[i]);
-				}
-				if(!$scope.$$phase) {
-					$scope.$apply();
-				}
-			}, function (error) {
-				console.log('Error: ' + error);
-			}
-		);
+       $cordovaImagePicker.getPictures(options)
+         .then(function (results) {
+             for (var i = 0; i < results.length; i++) {
+                //  console.log('Image URI: ' + results[i]);
+                 $scope.imagens.push(results[i]);
+                // Encode URI to Base64
+                window.plugins.Base64.encodeFile(results[i], function(base64){
+                   // Save images in Base64
+                   $scope.images.push(base64);
+                   $scope.imag = $scope.images[0];
+                });
 
-	};
+             }
+             if(!$scope.$$phase) {
+               $scope.$apply();
+             }
+
+         }, function(error) {
+             // error getting photos
+         });
+         console.log("Base64:\n\n\n",$scope.images);
+
+     };
      $scope.logi = function () {
        alert($scope.images);
      }

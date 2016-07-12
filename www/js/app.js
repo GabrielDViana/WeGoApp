@@ -131,15 +131,6 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
           }
         }
       })
-      .state('app.search', {
-        url: '/user',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/search.html',
-            controller: 'CompaniesCtrl'
-          }
-        }
-      })
       .state('app.favorites', {
         url: '/favorites',
         views: {

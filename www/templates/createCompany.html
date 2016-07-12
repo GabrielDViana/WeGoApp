@@ -45,6 +45,12 @@
     <p style="color:white;">
       company.days {{ company.days | json }}
     </p>
+    <div>
+      <p ng-repeat="img in images">
+        <img ng-src="{{img}}" style="max-width:250px;max-height:250px" />
+      </p>
+      <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="selImages()"> Câmera</button>
+    </div>
     <div class="row">
       <div class="col col-33"></div>
       <div class="col col-33 col-center">
@@ -55,14 +61,6 @@
 
   </div>
     <!-- Div para login com rede social  -->
-<div>
-  <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="selImages()"> Câmera</button>
-  <button class=" btCamera font button button-block button-positive icon ion-ios-camera" ng-click="logi()"> multi</button>
-
-  <p ng-repeat="img in images">
-  	<img ng-src="{{img}}" style="max-width:250px;max-height:250px" />
-  </p>
-</div>
 
 </ion-content>
 
