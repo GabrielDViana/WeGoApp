@@ -5,18 +5,20 @@
     <button class="button icon ion-search" ng-click ="toggle()"></button>
   </div>
   <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="false">
-    <div class="companies"></div>
     <label>Palavra chave: <input ng-model="search.$"></label>
     <label>Nome <input ng-model="search.name"></label>
     <label>Descrição <input ng-model="search.description"></label>
     <ion-list ng-repeat="company in companys | filter:search">
-      <div class="company-navigation">
-      <div scroll="false" class="companies" ng-init="isOperating($index)">
+      <div scroll="false" class="company-navigation" data-tap-disabled="true" ng-init="isOperating($index)">
+        <h2>{{company.name}}</h2>
         <a scroll="false">
           <a class="ribbon"><p>{{company.average_rating}}</p></a>
             <a class="close-ribbon"></a>
-            <img ng-src="{{company.company_images[0]}}" />
-            <h2>{{company.name}}</h2>
+            <ion-slide-box show-pager="true">
+              <ion-slide ng-repeat="img in company.company_images">
+                <img class="company-carousel" ng-src="{{img}}"/>
+              </ion-slide>
+            </ion-slide-box>
             <div class="row companies-icons">
               <div class="col col-75"></div>
               <div class="col">
@@ -27,7 +29,6 @@
             </div>
           </div>
         </a>
-      </div>
     </ion-list>
   </ion-content>
 </ion-view>

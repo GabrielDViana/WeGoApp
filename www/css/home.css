@@ -4,20 +4,25 @@
   content: '';
   display: block;
 }
-.companies{
+.company-navigation{
   margin-bottom: 1em;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
-.companies img{
+.company-navigation h2{
+  position: absolute;
+  z-index: 1;
+}
+.company-navigation img{
   width:100%;
-  height:250px;
+  height:225px;
 }
 .company-carousel{
   width:100%;
-  max-height:250px;
+  max-height:225px;
 }
 .company-navigation{
   background-size: 100%;
-  height: 250px;
+  height: 225px;
   z-index: 1;
 }
 .company-navigation h2,
@@ -26,7 +31,7 @@
   color: #fff;
 }
 .company-navigation h2{
-  font-size: 1em;
+  font-size: 1.5em;
 }
 .img-header{
   margin-top: -10px;

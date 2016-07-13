@@ -3,39 +3,72 @@ angular.module('starter')
 .controller('createCompanyCtrl', function($ionicPopup ,$scope, $state, $stateParams,
   $rootScope, $ionicLoading, ionicMaterialInk, $timeout, $ionicPickerI18n,
   serviceCreateCompany, factoryCreateCompany, $cordovaCamera, $cordovaImagePicker,
-  serviceLogin, NgMap, serviceLocation, $filter, $compile) {
-    $scope.initialize = function() {
-      var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
+  serviceLogin, NgMap, serviceLocation, $filter, $compile, factoryGetCategories) {
 
-      var mapOptions = {
-        center: myLatlng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      var map = new google.maps.Map(document.getElementById("map"),
-          mapOptions);
-
-      //Marker + infowindow + angularjs compiled ng-click
-      var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-      var compiled = $compile(contentString)($scope);
-
-      var infowindow = new google.maps.InfoWindow({
-        content: compiled[0]
-      });
-
-      $scope.marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title: 'Uluru (Ayers Rock)'
-      });
-
-      google.maps.event.addListener($scope.marker, 'click', function() {
-        infowindow.open(map,$scope.marker);
-      });
-
-      $scope.map = map;
+    $scope.getCategories = function(){
+      factoryGetCategories.get(function(categories) {
+        $ionicLoading.hide();
+        $rootScope.categories = categories;
+        console.log($rootScope.categories);
+        $ionicLoading.hide();
+      }, function(error) {
+        $ionicLoading.hide();
+        $ionicPopup.alert({
+          title: 'Erro!',
+          template: 'Não foi possivel \nacessar o banco de dados'
+        });
+        $state.go('app.profile');
+      })
     }
-    google.maps.event.addDomListener(window, 'load', $scope.initialize);
+  //   $scope.groupData =[
+  //   {name: "Group1",
+  //    sub: [{name: 'Subgroup1'}]
+  //   },
+  //   {name: "Group2", sub: [{name: 'Subgroup2'}, {name: 'Subgroup22'}, ]},
+  //                          {name: "Group3", sub: [{name: 'Subgroup3'}]}
+  // ];
+
+  $rootScope.subcategories = [];
+  $scope.update = function(groupSelected) {
+    angular.forEach($rootScope.categories, function (groupVal) {
+        if (groupVal.name == groupSelected) {
+          $rootScope.subcategories = groupVal.subcategories;
+          console.log($rootScope.subcategories);
+    }
+      });
+  };
+    // $scope.initialize = function() {
+    //   var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
+    //
+    //   var mapOptions = {
+    //     center: myLatlng,
+    //     zoom: 15,
+    //     mapTypeId: google.maps.MapTypeId.ROADMAP
+    //   };
+    //   var map = new google.maps.Map(document.getElementById("map"),
+    //       mapOptions);
+    //
+    //   //Marker + infowindow + angularjs compiled ng-click
+    //   var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+    //   var compiled = $compile(contentString)($scope);
+    //
+    //   var infowindow = new google.maps.InfoWindow({
+    //     content: compiled[0]
+    //   });
+    //
+    //   $scope.marker = new google.maps.Marker({
+    //     position: myLatlng,
+    //     map: map,
+    //     title: 'Uluru (Ayers Rock)'
+    //   });
+    //
+    //   google.maps.event.addListener($scope.marker, 'click', function() {
+    //     infowindow.open(map,$scope.marker);
+    //   });
+    //
+    //   $scope.map = map;
+    // }
+    // google.maps.event.addDomListener(window, 'load', $scope.initialize);
 
 
   $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAPfi0mlLEsRQf96-64bONF7DoLxYtLwRY";
