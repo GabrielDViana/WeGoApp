@@ -4,6 +4,7 @@
   </div>
   <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="false">
     <div class="profile-info text-center">
+      <img ng-src="{{fbimage}}" class="profile-image" />
       <img class="profile-image" ng-if="fblogged" ng-src="https://graph.facebook.com/{{ user.idFacebook }}/picture?width=700&height=700">
       <img class="profile-image" ng-if="!fblogged" ng-src="img/ionic.png">
       <h2>{{user.name}}</h2>

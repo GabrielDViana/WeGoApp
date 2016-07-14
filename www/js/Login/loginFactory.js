@@ -1,12 +1,12 @@
 angular.module('starter')
 
 .factory('factoryRegister', function($resource) {
-  return $resource("http://376dfa8b.ngrok.io/users/create")
+  return $resource("http://aafd37ef.ngrok.io/users/create")
 })
 
 .factory('factoryLogin', function($resource) {
-  return $resource("http://376dfa8b.ngrok.io/users/login/:email")
+  return $resource("http://aafd37ef.ngrok.io/users/login/:email")
 })
 .factory('factoryTwitter', function($resource) {
-  return $resource("http://376dfa8b.ngrok.io/login_twitter/:id_social")
+  return $resource("http://aafd37ef.ngrok.io/login_twitter/:id_social")
 })
