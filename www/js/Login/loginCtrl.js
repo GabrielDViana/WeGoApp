@@ -13,7 +13,6 @@ angular.module('starter')
 
   $scope.onSuccess = function(e){
     $rootScope.fbimage = e.data;
-    console.log("imagem", $rootScope.fbimage);
  };
 
   $scope.onError = function(e){

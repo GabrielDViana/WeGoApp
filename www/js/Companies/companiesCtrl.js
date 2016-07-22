@@ -85,10 +85,6 @@ angular.module('starter')
         var x = document.getElementsByClassName('close-ribbon');
         // x[id].innerHTML = "Disponivel";
         x[id].style.color = "#33cd5f";
-      }else if ($scope.filtered === $rootScope.companys[id].days[j]){
-        var x = document.getElementsByClassName('close-ribbon');
-        // x[id].innerHTML = "Indisponível";
-        x[id].style.color = "#ef473a";
       }
     }
   }

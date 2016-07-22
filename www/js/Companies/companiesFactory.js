@@ -1,7 +1,7 @@
 angular.module('starter')
 
 .factory('factoryCompanies', function($resource) {
-  return $resource("http://aafd37ef.ngrok.io/company/", {}, {
+  return $resource("http://localhost:3000/company/", {}, {
       'get': {
               method:'GET',
               isArray:true
@@ -10,7 +10,7 @@ angular.module('starter')
 })
 
 .factory('factoryCompany', function($resource) {
-  return $resource("http://aafd37ef.ngrok.io/company/show/", {}, {
+  return $resource("http://localhost:3000/company/show/", {}, {
       'get': { method:'GET',
                   params:{  token:'@token' }
       }
@@ -20,15 +20,15 @@ angular.module('starter')
 
 
 .factory('factoryRating', function($resource) {
-  return $resource("http://aafd37ef.ngrok.io/company/rate")
+  return $resource("http://localhost:3000/company/rate")
 })
 
 .factory('factoryFavorite', function($resource) {
-  return $resource("http://aafd37ef.ngrok.io/company/favorite")
+  return $resource("http://localhost:3000/company/favorite")
 })
 
 .factory('factoryFavorites', function($resource) {
-  return $resource("http://aafd37ef.ngrok.io/company/favorites/", {}, {
+  return $resource("http://localhost:3000/company/favorites/", {}, {
       'get': {
                   method:'GET',
                   params:{  auth_token:'@auth_token' },
