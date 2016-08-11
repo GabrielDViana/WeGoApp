@@ -36,9 +36,6 @@ angular.module('starter')
     })
   };
 
-
-
-
   $scope.follow = function(user) {
     user.main_user_auth_token = serviceLogin.getUser().auth_token;
     factoryFollow.save(user, function(user) {

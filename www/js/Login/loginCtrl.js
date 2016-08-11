@@ -80,6 +80,10 @@ angular.module('starter')
           $state.go('app.home');
         }, function(error) {
           $ionicLoading.hide();
+          $ionicPopup.alert({
+            title: 'Ops!',
+            template: 'Erro ao se comunicar com o servidor!'
+          });
           $state.go('app.home');
         });
         $state.go('app.home');
