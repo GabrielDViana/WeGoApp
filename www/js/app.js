@@ -2,6 +2,8 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
   'ionMdInput','ionic-material','ion-datetime-picker',
   'checklist-model', 'ionic.rating', 'ngMap', 'starter'])
 
+.constant('URL', 'http://localhost:3000')
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -151,7 +153,7 @@ angular.module('starter', ['ionic','firebase','ngCordova','ngResource',
 }])
 .run(function($ionicPickerI18n) {
     $ionicPickerI18n.weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
-    $ionicPickerI18n.months =  ["Jan", "Fev", "Março", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+    $ionicPickerI18n.months =  ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     $ionicPickerI18n.ok = "Ok";
     $ionicPickerI18n.cancel = "Cancelar";
   });

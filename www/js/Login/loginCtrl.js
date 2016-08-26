@@ -11,40 +11,22 @@ angular.module('starter')
   }, 0);
   ionicMaterialInk.displayEffect();
 
-  $scope.onSuccess = function(e){
-    $rootScope.fbimage = e.data;
- };
-
-  $scope.onError = function(e){
-    console.log("erro", e.message);
-  };
-
-
-
-  $scope.getImageDataURL = function(url, success, error) {
-    var data, canvas, ctx;
+  var toDataURL = function(src, callback, outputFormat) {
     var img = new Image();
-    img.setAttribute('crossOrigin', 'anonymous');
-    img.src = url;
-    img.onload = function(){
-      canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      try{
-        data = canvas.toDataURL();
-        success({image:img, data:data});
-      }catch(e){
-        error(e);
-      }
-    }
-    try{
-      img.src = url;
-    }catch(e){
-      error(e);
-    }
-  };
+    img.crossOrigin = 'Anonymous';
+    img.onload = function() {
+      var canvas = document.createElement('CANVAS');
+      var ctx = canvas.getContext('2d');
+      var dataURL;
+      canvas.height = this.height;
+      canvas.width = this.width;
+      ctx.drawImage(this, 0, 0);
+      dataURL = canvas.toDataURL(outputFormat);
+      callback(dataURL);
+      return dataURL
+    };
+    img.src = src;
+  }
 
   var ref = new Firebase("https://appwego.firebaseio.com");
   $scope.loginFacebook = function() {
@@ -53,40 +35,43 @@ angular.module('starter')
       if (error) {
         console.log("Login Failed!", error);
       } else {
-        $scope.url = "https://graph.facebook.com/"+ authData.facebook.id +"/picture?width=700&height=700";
-        $scope.getImageDataURL($scope.url, $scope.onSuccess, $scope.onError);
-
-        $state.go('app.profile');
-        console.log("Data from Firebase:", authData);
-        serviceLogin.setUser(
-          authData.facebook.displayName,
-          authData.facebook.email,
-          authData.facebook.id,
-          authData.facebook.cachedUserProfile.birthday,
-          authData.facebook.cachedUserProfile.gender
-        );
-        serviceRegisterSocial.setUser(
-          authData.facebook.displayName,
-          authData.facebook.email,
-          authData.facebook.id,
-          authData.facebook.cachedUserProfile.gender,
-          new Date(authData.facebook.cachedUserProfile.birthday),
-          $rootScope.fbimage
-        );
-        console.log("Usr:", serviceRegisterSocial.getUser());
-        factoryRegister.save(serviceRegisterSocial.getUser(), function(user) {
-          $ionicLoading.hide();
-          $scope.loginEmail(serviceRegisterSocial.getUser());
-          $state.go('app.home');
-        }, function(error) {
-          $ionicLoading.hide();
-          $ionicPopup.alert({
-            title: 'Ops!',
-            template: 'Erro ao se comunicar com o servidor!'
-          });
-          $state.go('app.home');
+        toDataURL("https://graph.facebook.com/"+ authData.facebook.id +"/picture?width=700&height=700", function(base64Img) {
+          $scope.fbimage = (base64Img.slice(22, base64Img.length));
+          $rootScope.$apply();
         });
-        $state.go('app.home');
+        $timeout(function () {
+          console.log("Data from Firebase:", authData);
+          serviceLogin.setUser(
+            authData.facebook.displayName,
+            authData.facebook.email,
+            authData.facebook.id,
+            authData.facebook.cachedUserProfile.birthday,
+            authData.facebook.cachedUserProfile.gender
+          );
+          serviceRegisterSocial.setUser(
+            authData.facebook.displayName,
+            authData.facebook.email,
+            authData.facebook.id,
+            authData.facebook.cachedUserProfile.gender,
+            new Date(authData.facebook.cachedUserProfile.birthday),
+            $scope.fbimage
+          );
+          console.log("Usr:", serviceRegisterSocial.getUser());
+          factoryRegister.save(serviceRegisterSocial.getUser(), function(user) {
+            $ionicLoading.hide();
+            var user ={};
+            user.email = serviceRegisterSocial.getUser().email;
+            user.password = serviceRegisterSocial.getUser().password;
+            $scope.loginEmail(user);
+          }, function(error) {
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+              title: 'Ops!',
+              template: 'Erro ao se comunicar com o servidor!'
+            });
+            $state.go('app.home');
+          });
+        }, 2500);
         $rootScope.user = serviceLogin.getUser();
         console.log("User:", $rootScope.user);
       }
@@ -102,39 +87,43 @@ angular.module('starter')
         console.log("Login Failed!", error);
       } else {
         console.log("Data from Firebase:", authData);
-        $scope.url = 'http://twitter.com/api/users/profile_image/' + authData.twitter.id + '?size=normal';
-        $scope.getImageDataURL($scope.url, $scope.onSuccess, $scope.onError);
-        serviceLoginSocial.setUser(
-          authData.twitter.displayName,
-          authData.twitter.email,
-          authData.twitter.id
-        );
-
-        console.log("try",serviceLoginSocial.getUser());
-        factoryTwitter.get(serviceLoginSocial.getUser(), function(user) {
-          serviceLogin.setUser(
-            user.name,
-            user.email,
-            user.auth_token
+        toDataURL(authData.twitter.profileImageURL, function(base64Img) {
+          $scope.fbimage = (base64Img.slice(22, base64Img.length));
+          $rootScope.$apply();
+        });
+        $timeout(function () {
+          serviceLoginSocial.setUser(
+            authData.twitter.displayName,
+            authData.twitter.email,
+            authData.twitter.id
           );
-          $ionicLoading.hide();
-          $ionicPopup.alert({
-            title: 'Logado!',
-            template: '{{user}}'
-          });
-          $rootScope.user = serviceLogin.getUser();
-          console.log($rootScope.user);
-          $state.go('app.profile');
-          $ionicLoading.hide();
-          $rootScope.logged = true;
-        }, function(error) {
-          $ionicLoading.hide();
-          $ionicPopup.alert({
-            title: 'Ops!',
-            template: 'Você ainda não está registrado!'
-          });
-          $state.go('app.twitterregister');
-        })
+
+          console.log("try",serviceLoginSocial.getUser());
+          factoryTwitter.get(serviceLoginSocial.getUser(), function(user) {
+            serviceLogin.setUser(
+              user.name,
+              user.email,
+              user.auth_token
+            );
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+              title: 'Logado!',
+              template: '{{user}}'
+            });
+            $rootScope.user = serviceLogin.getUser();
+            console.log(user);
+            $state.go('app.profile');
+            $ionicLoading.hide();
+            $rootScope.logged = true;
+          }, function(error) {
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+              title: 'Ops!',
+              template: 'Você ainda não está registrado!'
+            });
+            $state.go('app.twitterregister');
+          })
+        }, 2500);
       }
     }, {
       remember: "sessionOnly",
@@ -209,7 +198,8 @@ angular.module('starter')
       user.email,
       $scope.dataFromFirebase.id_social,
       user.gender,
-      user.birthday
+      user.birthday,
+      $scope.fbimage
     );
     $ionicLoading.show({
       template: 'Loading...'

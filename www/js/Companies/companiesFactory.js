@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.factory('factoryCompanies', function($resource) {
+.factory('factoryCompanies', function($resource,URL) {
   return $resource("http://localhost:3000/company/", {}, {
       'get': {
               method:'GET',
@@ -9,7 +9,7 @@ angular.module('starter')
     })
 })
 
-.factory('factoryCompany', function($resource) {
+.factory('factoryCompany', function($resource,URL) {
   return $resource("http://localhost:3000/company/show/", {}, {
       'get': { method:'GET',
                   params:{  token:'@token' }
@@ -19,15 +19,15 @@ angular.module('starter')
 })
 
 
-.factory('factoryRating', function($resource) {
+.factory('factoryRating', function($resource,URL) {
   return $resource("http://localhost:3000/company/rate")
 })
 
-.factory('factoryFavorite', function($resource) {
+.factory('factoryFavorite', function($resource,URL) {
   return $resource("http://localhost:3000/company/favorite")
 })
 
-.factory('factoryFavorites', function($resource) {
+.factory('factoryFavorites', function($resource,URL) {
   return $resource("http://localhost:3000/company/favorites/", {}, {
       'get': {
                   method:'GET',
