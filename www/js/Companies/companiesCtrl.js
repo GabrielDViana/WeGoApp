@@ -74,20 +74,20 @@ angular.module('starter')
     })
   };
 
-  $scope.isOperating = function(id)  {
-    var sizedays = $rootScope.companys[id].days.length;
-    var open = $filter('date')( $rootScope.companys[id].time_opens, 'HH:MM');
-    var close = $filter('date')( $rootScope.companys[id].time_closes, 'HH:MM');
-    console.log(open, close);
-    for (var j = 0; j < sizedays; j++) {
-      if ($scope.filtered === $rootScope.companys[id].days[j] && timeNow >= open && timeNow < close) {
-        console.log('disponivel',$rootScope.companys[id].days[j],id);
-        var x = document.getElementsByClassName('close-ribbon');
-        // x[id].innerHTML = "Disponivel";
-        x[id].style.color = "#33cd5f";
-      }
-    }
-  }
+  // $scope.isOperating = function(id)  {
+  //   var sizedays = $rootScope.companys[id].days.length;
+  //   var open = $filter('date')( $rootScope.companys[id].time_opens, 'HH:MM');
+  //   var close = $filter('date')( $rootScope.companys[id].time_closes, 'HH:MM');
+  //   console.log(open, close);
+  //   for (var j = 0; j < sizedays; j++) {
+  //     if ($scope.filtered === $rootScope.companys[id].days[j] && timeNow >= open && timeNow < close) {
+  //       console.log('disponivel',$rootScope.companys[id].days[j],id);
+  //       var x = document.getElementsByClassName('close-ribbon');
+  //       // x[id].innerHTML = "Disponivel";
+  //       x[id].style.color = "#33cd5f";
+  //     }
+  //   }
+  // }
 
   $scope.isItRated = function(ratings) {
     console.log("rate",ratings);

@@ -9,7 +9,7 @@
     <label>Nome <input ng-model="search.name"></label>
     <label>Descrição <input ng-model="search.description"></label>
     <ion-list ng-repeat="company in companys | filter:search">
-      <div scroll="false" class="company-navigation" data-tap-disabled="true" ng-init="isOperating($index)">
+      <div scroll="false" class="company-navigation" data-tap-disabled="true">
         <h2>{{company.name}}</h2>
         <a scroll="false">
           <a class="ribbon"><p>{{company.average_rating}}</p></a>
